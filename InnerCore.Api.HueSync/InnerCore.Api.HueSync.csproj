@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>A simple library to communicate with the Philips Hue Sync Box</Description>
+    <PackageId>InnerCore.Api.HueSync</PackageId>
+    <Authors>Philippe Wechsler</Authors>
+    <Company>InnerCore</Company>
+    <Copyright>Copyright © 2020 Philippe Wechsler</Copyright>
+    <PackageProjectUrl>https://github.com/MadMonkey87/InnerCore.Api.HueSync</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MadMonkey87/InnerCore.Api.HueSync</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageTags>philips signify hue sync hdmi ambilight</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  
+</Project>
