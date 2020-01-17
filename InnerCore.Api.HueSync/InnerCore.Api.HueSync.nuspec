@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>InnerCore.Api.HueSync</id>
+    <version>0.9.0</version>
+    <title>InnerCore.Api.HueSync</title>
+    <authors>Philippe Wechsler</authors>
+    <owners>Philippe Wechsler</owners>
+    <licenseUrl>https://github.com/MadMonkey87/InnerCore.Api.HueSync/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/MadMonkey87/InnerCore.Api.HueSync</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A simple library to communicate with Philips Hue Sync Box</description>
+    <releaseNotes>initial release</releaseNotes>
+    <copyright>Copyright 2020 Philippe Wechsler</copyright>
+    <tags>philips signify hue sync hdmi ambilight</tags>
+	<repository type="GitHub" url="https://github.com/MadMonkey87/InnerCore.Api.HueSync" />
+	<dependencies>
+		<group targetFramework="netstandard2.0">
+			<dependency id="Newtonsoft.Json" version="12.0.3" />
+		</group>
+	</dependencies>
+  </metadata>
+  <files>
+	<file src="bin\Release\**\InnerCore.Api.HueSync.dll" target="lib" />
+  </files>
+</package>
