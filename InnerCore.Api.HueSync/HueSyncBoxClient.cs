@@ -32,6 +32,9 @@ namespace InnerCore.Api.HueSync
 		public void Initialize(string accessToken)
 		{
 			_accessToken = accessToken ?? throw new ArgumentNullException(nameof(accessToken));
+			if(_httpClient != null) {
+				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+			}
 		}
 
 		/// <summary>
