@@ -63,13 +63,6 @@ namespace InnerCore.Api.HueSync
 			return registrationResponse.Success ? registrationResponse.AccessToken : null;
 		}
 
-		public async Task<Device> GetDeviceAsync()
-		{
-			var client = await GetHttpClient().ConfigureAwait(false);
-			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1")).ConfigureAwait(false);
-			return await HandleResponseAsync<Device>(response);
-		}
-
 		public async Task<State> GetStateAsync()
 		{
 			CheckInitialized();
@@ -77,6 +70,48 @@ namespace InnerCore.Api.HueSync
 			var client = await GetHttpClient().ConfigureAwait(false);
 			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1")).ConfigureAwait(false);
 			return await HandleResponseAsync<State>(response);
+		}
+
+		public async Task<Device> GetDeviceAsync()
+		{
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/device")).ConfigureAwait(false);
+			return await HandleResponseAsync<Device>(response);
+		}
+
+		public async Task<Hue> GetHueAsync()
+		{
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/hue")).ConfigureAwait(false);
+			return await HandleResponseAsync<Hue>(response);
+		}
+
+		public async Task<Hdmi> GetHdmiAsync()
+		{
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/hdmi")).ConfigureAwait(false);
+			return await HandleResponseAsync<Hdmi>(response);
+		}
+
+		public async Task<Execution> GetExecutionAsync()
+		{
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/execution")).ConfigureAwait(false);
+			return await HandleResponseAsync<Execution>(response);
+		}
+
+		public async Task<Behaviour> GetBehaviourAsync()
+		{
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/behaviour")).ConfigureAwait(false);
+			return await HandleResponseAsync<Behaviour>(response);
+		}
+
+		public async Task<Registrations> GetRegistrationsAsync()
+		{
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/registrations")).ConfigureAwait(false);
+			return await HandleResponseAsync<Registrations>(response);
 		}
 
 		public async Task PerformActionAsync(ActionCommand action)
@@ -140,7 +175,15 @@ namespace InnerCore.Api.HueSync
 			// return per-thread HttpClient
 			if (_httpClient == null)
 			{
-				_httpClient = new HttpClient();
+				var handler = new HttpClientHandler();
+				handler.ClientCertificateOptions = ClientCertificateOption.Manual;
+				handler.ServerCertificateCustomValidationCallback =
+					(httpRequestMessage, cert, cetChain, policyErrors) =>
+					{
+						return true;
+					};
+
+				_httpClient = new HttpClient(handler);
 				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
 			}
 
