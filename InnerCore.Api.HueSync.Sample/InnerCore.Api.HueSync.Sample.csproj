@@ -8,6 +8,14 @@
     <Copyright>Copyright © 2020 Philippe Wechsler</Copyright>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\InnerCore.Api.HueSync\InnerCore.Api.HueSync.csproj" />
   </ItemGroup>
