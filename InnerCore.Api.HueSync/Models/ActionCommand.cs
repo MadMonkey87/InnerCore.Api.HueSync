@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
 
 namespace InnerCore.Api.HueSync.Models
 {
@@ -6,9 +8,11 @@ namespace InnerCore.Api.HueSync.Models
 	public class ActionCommand
 	{
 		[DataMember(Name = "mode")]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public Mode? Mode { get; set; }
 
 		[DataMember(Name = "intensity")]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public Intensity? Intensity { get; set; }
 
 		/// <summary>
@@ -18,7 +22,8 @@ namespace InnerCore.Api.HueSync.Models
 		public int? Brightness { get; set; }
 
 		[DataMember(Name = "hdmiSource")]
-		public HdmiSource HdmiSource { get; set; }
+		[JsonConverter(typeof(StringEnumConverter))]
+		public HdmiSource? HdmiSource { get; set; }
 
 		[DataMember(Name = "video")]
 		public ModeOptions VideoOptions { get; set; }

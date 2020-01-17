@@ -6,6 +6,7 @@ namespace InnerCore.Api.HueSync.Models
 	public class ModeOptions
 	{
 		[DataMember(Name = "intensity")]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public Intensity? Intensity { get; set; }
 
 		[DataMember(Name = "backgroundLighting")]
