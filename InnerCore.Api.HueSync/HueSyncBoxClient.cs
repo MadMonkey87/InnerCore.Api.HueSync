@@ -100,11 +100,11 @@ namespace InnerCore.Api.HueSync
 			return await HandleResponseAsync<Execution>(response);
 		}
 
-		public async Task<Behaviour> GetBehaviourAsync()
+		public async Task<Behavior> GetBehaviorAsync()
 		{
 			var client = await GetHttpClient().ConfigureAwait(false);
-			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/behaviour")).ConfigureAwait(false);
-			return await HandleResponseAsync<Behaviour>(response);
+			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/behavior")).ConfigureAwait(false);
+			return await HandleResponseAsync<Behavior>(response);
 		}
 
 		public async Task<Registrations> GetRegistrationsAsync()
@@ -127,16 +127,16 @@ namespace InnerCore.Api.HueSync
 			await HandleResponseAsync(response);
 		}
 
-		public async Task ApplyBehaviourAsync(Behaviour behaviour)
+		public async Task ApplyBehaviorAsync(Behavior behavior)
 		{
-			if (behaviour == null)
+			if (behavior == null)
 			{
-				throw new ArgumentNullException(nameof(behaviour));
+				throw new ArgumentNullException(nameof(behavior));
 			}
 			CheckInitialized();
 
 			var client = await GetHttpClient().ConfigureAwait(false);
-			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/behaviour"), SerializeRequest(behaviour)).ConfigureAwait(false);
+			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/behavior"), SerializeRequest(behavior)).ConfigureAwait(false);
 			await HandleResponseAsync(response);
 		}
 
@@ -145,7 +145,7 @@ namespace InnerCore.Api.HueSync
 			CheckInitialized();
 
 			var client = await GetHttpClient().ConfigureAwait(false);
-			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/behaviour"), SerializeRequest(new DeviceCommand() { Action = action })).ConfigureAwait(false);
+			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/behavior"), SerializeRequest(new DeviceCommand() { Action = action })).ConfigureAwait(false);
 			await HandleResponseAsync(response);
 		}
 

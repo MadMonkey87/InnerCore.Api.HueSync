@@ -36,7 +36,7 @@ namespace InnerCore.Api.HueSync.Models
 		/// Details about the currently applied settings
 		/// </summary>
 		[DataMember(Name = "behavior")]
-		public Behaviour Behaviour { get; set; }
+		public Behavior Behavior { get; set; }
 
 		/// <summary>
 		/// Details about the registered apps

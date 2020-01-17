@@ -3,7 +3,7 @@
 namespace InnerCore.Api.HueSync.Models
 {
 	[DataContract]
-	public class Behaviour
+	public class Behavior
 	{
 		[DataMember(Name = "inactivePowersave")]
 		public int? InactivePowerSave { get; set; }
@@ -21,15 +21,15 @@ namespace InnerCore.Api.HueSync.Models
 		public int? ArcBypassMode { get; set; }
 
 		[DataMember(Name = "input1")]
-		public InputBehaviour Input1 { get; set; }
+		public InputBehavior Input1 { get; set; }
 
 		[DataMember(Name = "input2")]
-		public InputBehaviour Input2 { get; set; }
+		public InputBehavior Input2 { get; set; }
 
 		[DataMember(Name = "input3")]
-		public InputBehaviour Input3 { get; set; }
+		public InputBehavior Input3 { get; set; }
 
 		[DataMember(Name = "input4")]
-		public InputBehaviour Input4 { get; set; }
+		public InputBehavior Input4 { get; set; }
 	}
 }

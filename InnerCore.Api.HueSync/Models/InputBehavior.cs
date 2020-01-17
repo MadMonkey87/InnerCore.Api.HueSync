@@ -3,7 +3,7 @@
 namespace InnerCore.Api.HueSync.Models
 {
 	[DataContract]
-	public class InputBehaviour
+	public class InputBehavior
 	{
 		/// <summary>
 		/// Automatically switch to this input if a new signal is detected
