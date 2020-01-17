@@ -1,4 +1,4 @@
-# InnerCore.Api.HueSync [![.NET Standard][dotnet-standard badge]][dotnet-standard doc]
+# InnerCore.Api.HueSync [![Build Status][azure build]][project]	[![NuGet][nuget badge]][nuget package]	  [![.NET Standard][dotnet-standard badge]][dotnet-standard doc]
 
 Open source library for communication with the Philips Hue Sync Box. This library allows you to perform the same actions as you could do with the official app and even more!
 
@@ -60,11 +60,14 @@ These actions directly affect the device, like rebooting it or checking for firm
 
 ## License
 
-InnerCore.Api.DeConz is licensed under [MIT](http://www.opensource.org/licenses/mit-license.php "Read more about the MIT license form"). Refer to [license.txt](https://github.com/MadMonkey87/InnerCore.Api.DeConz/blob/master/LICENSE.txt) for more information.
+InnerCore.Api.HueSync is licensed under [MIT](http://www.opensource.org/licenses/mit-license.php "Read more about the MIT license form"). Refer to [license.txt](https://github.com/MadMonkey87/InnerCore.Api.HueSync/blob/master/LICENSE.txt) for more information.
 
 ## contributions
 Contributions are welcome. Fork this repository and send a pull request if you have something useful to add.
 
+[azure build]: https://innercore.visualstudio.com/InnerCore.Api.HueSync/_apis/build/status/InnerCore.Api.HueSync?branchName=master
 [project]: https://github.com/MadMonkey87/InnerCore.Api.HueSync
+[nuget badge]: https://img.shields.io/nuget/v/InnerCore.Api.HueSync.svg
+[nuget package]: https://www.nuget.org/packages/InnerCore.Api.HueSync
 [dotnet-standard badge]: http://img.shields.io/badge/.NET_Standard-v2.0-green.svg
 [dotnet-standard doc]: https://docs.microsoft.com/da-dk/dotnet/articles/standard/library
