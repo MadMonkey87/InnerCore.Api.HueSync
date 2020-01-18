@@ -59,6 +59,11 @@ These actions directly affect the device, like rebooting it or checking for firm
 
     await client.PerformDeviceActionAsync(DeviceAction.Restart);
 
+### Discovered new features
+The api reveals a few features that the official app does not yet provide but that are already availabke trough the api:
+ - characteristics of the current input: in the State.Hdmi.ContentSpecs field you can see the resolution, colormode and refreshrate of the current input
+ - in the music mode there is also the possability to choose a color palette, but currently only one is known (maybe it will be possible to create custom ones)
+
 ## License
 
 InnerCore.Api.HueSync is licensed under [MIT](http://www.opensource.org/licenses/mit-license.php "Read more about the MIT license form"). Refer to [license.txt](https://github.com/MadMonkey87/InnerCore.Api.HueSync/blob/master/LICENSE.txt) for more information.

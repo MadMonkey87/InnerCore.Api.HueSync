@@ -26,10 +26,13 @@ namespace InnerCore.Api.HueSync.Models
 		public HdmiSource? HdmiSource { get; set; }
 
 		[DataMember(Name = "video")]
-		public ModeOptions VideoOptions { get; set; }
+		public ModeOptionsVideo VideoOptions { get; set; }
 
-		[DataMember(Name = "game")] 
-		public ModeOptions GameOptions { get; set; }
+		[DataMember(Name = "game")]
+		public ModeOptionsVideo GameOptions { get; set; }
+
+		[DataMember(Name = "music")]
+		public ModeOptionsMusic MusicOptions { get; set; }
 
 		// todo: looks like this would be the place to provide the options for the music and the ambient mode:
 		//"music": {
