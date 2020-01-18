@@ -63,6 +63,7 @@ These actions directly affect the device, like rebooting it or checking for firm
 The api reveals a few features that the official app does not yet provide but that are already availabke trough the api:
  - characteristics of the current input: in the State.Hdmi.ContentSpecs field you can see the resolution, colormode and refreshrate of the current input (seems a little buggy, sdr and hdr are correct, dolby vision however is indicated as 'sdr' although it gets passed trough just fine inclusive syncing).
  - in the music mode there is also the possability to choose a color palette, but currently only one is known (maybe it will be possible to create custom ones)
+ - ledMode: enable/disable the led
  - there is an ambient mode where the box performs some animations at it's own, not depending on the input. It is not yet clear how that works exactly, but the effect can be controlled using two parameters:
    ambientShowType: somehow controlls the speed and colors of the animations. Value 1 & 2 are flickering, 3 & 4 is almost a solid blue, 5 & 6 is a slowly changing animation between two colors. Bigger values change the used colors and speed. 
    ambientModeType: this one is even more unclear and does not seem to have a direct effect, but 1 seems to be a good value as ambientShowType has no effect otherwise.
