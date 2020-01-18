@@ -32,6 +32,12 @@ namespace InnerCore.Api.HueSync.Models
 		/// the sync box is powered on and performs the light synchronization in the "music" preset
 		/// </summary>
 		[EnumMember(Value = "music")]
-		Music
+		Music,
+
+		/// <summary>
+		/// the sync box is powered on and performs some animations by itself, not depending on any input
+		/// </summary>
+		[EnumMember(Value = "ambient")]
+		Ambient
 	}
 }
