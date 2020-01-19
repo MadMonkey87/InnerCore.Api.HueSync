@@ -23,7 +23,7 @@ If you want to test the connection you might fetch some basic details of your de
 
 	var device = await  client.GetDeviceAsync();
 
-Next you'll need to register on the sync box in order to retrieve an access token for further request. Press and hold the physical button on your sync box until the led turns green. After that you can retrieve the access token using
+Next you'll need to register on the sync box in order to retrieve an access token for further request. Enusre that the box is turned on (led is white) and then press and hold the physical button (~1 sec) on your sync box until the led flashes green. After that you can retrieve the access token using
 
 	accessToken = await client.RegisterAsync("Demo", "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=", Environment.MachineName);
 
