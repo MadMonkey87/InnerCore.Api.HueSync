@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Runtime.Serialization;
 
 namespace InnerCore.Api.HueSync.Models
 {
-	// todo: complete the values here
 	[DataContract]
 	public class Device
 	{
@@ -40,13 +41,18 @@ namespace InnerCore.Api.HueSync.Models
 		[DataMember(Name = "update")]
 		public Update Update { get; set; }
 
-		// "ledMode" = 1
+		[DataMember(Name = "ledMode")]
+		public int LedMode { get; set; }
 
-		// "wifiState" = "wan"
+		[DataMember(Name = "wifiState")]
+		[JsonConverter(typeof(StringEnumConverter))]
+		public WifiState WifiState { get; set; }
 
 		[DataMember(Name = "termsAgreed")]
 		public bool TermsAgreed { get; set; }
 
-		// "action" = "none"
+		[DataMember(Name = "action")]
+		[JsonConverter(typeof(StringEnumConverter))]
+		public DeviceAction Action { get; set; }
 	}
 }

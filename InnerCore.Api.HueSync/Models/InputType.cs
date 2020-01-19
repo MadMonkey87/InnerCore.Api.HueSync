@@ -17,7 +17,7 @@ namespace InnerCore.Api.HueSync.Models
 		[EnumMember(Value = "nintendoswitch")]
 		NintendoSwitch,
 
-		[EnumMember(Value = "smartphone")]
+		[EnumMember(Value = "phone")]
 		Smartphone,
 
 		[EnumMember(Value = "desktop")]
@@ -32,7 +32,7 @@ namespace InnerCore.Api.HueSync.Models
 		[EnumMember(Value = "roku")]
 		Roku,
 
-		[EnumMember(Value = "nvidiashield")]
+		[EnumMember(Value = "shield")]
 		NvidiaShield,
 
 		[EnumMember(Value = "chromecast")]
@@ -41,7 +41,7 @@ namespace InnerCore.Api.HueSync.Models
 		[EnumMember(Value = "firetv")]
 		FireTv,
 
-		[EnumMember(Value = "dvdplayer")]
+		[EnumMember(Value = "diskplayer")]
 		DvDPlayer,
 
 		[EnumMember(Value = "settopbox")]
@@ -50,7 +50,7 @@ namespace InnerCore.Api.HueSync.Models
 		[EnumMember(Value = "satellite")]
 		Satellite,
 
-		[EnumMember(Value = "av receiver")]
+		[EnumMember(Value = "avreceiver")]
 		AvReceiver,
 
 		[EnumMember(Value = "soundbar")]

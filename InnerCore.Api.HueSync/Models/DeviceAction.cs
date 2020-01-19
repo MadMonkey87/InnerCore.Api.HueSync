@@ -2,9 +2,11 @@
 
 namespace InnerCore.Api.HueSync.Models
 {
-	// todo: check if there are further actions possible
 	public enum DeviceAction
 	{
+		[EnumMember(Value = "none")]
+		None,
+
 		[EnumMember(Value = "checkForFirmwareUpdates")]
 		CheckFirmwareUpdates,
 
