@@ -58,7 +58,7 @@ namespace InnerCore.Api.HueSync
 			var client = await GetHttpClient().ConfigureAwait(false);
 			var response = await client.PostAsync(new Uri($"{_apiBase}/api/v1/registrations"), SerializeRequest(request)).ConfigureAwait(false);
 
-			var registrationResponse = await HandleResponseAsync<RegistrationResponse>(response);
+			var registrationResponse = await HandleResponseAsync<RegistrationResponse>(response, false);
 
             // all good, but the physical button has not yet been pressed
             if(registrationResponse.Code == 16)
@@ -160,18 +160,18 @@ namespace InnerCore.Api.HueSync
 			return new StringContent(JsonConvert.SerializeObject(request, _serializerSettings), Encoding.UTF8, "application/json");
 		}
 
-		private async Task HandleResponseAsync(HttpResponseMessage response)
+		private async Task HandleResponseAsync(HttpResponseMessage response, bool throwOnError = true)
 		{
-			if (!response.IsSuccessStatusCode)
+			if (!response.IsSuccessStatusCode && throwOnError)
 			{
 				var error = JsonConvert.DeserializeObject<GenericError>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
 				throw new HueSyncBoxException(error);
 			}
 		}
 
-		private async Task<T> HandleResponseAsync<T>(HttpResponseMessage response)
+		private async Task<T> HandleResponseAsync<T>(HttpResponseMessage response, bool throwOnError = true)
 		{
-			await HandleResponseAsync(response);
+			await HandleResponseAsync(response, throwOnError);
 
 			return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
 		}
