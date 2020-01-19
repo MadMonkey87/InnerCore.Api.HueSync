@@ -3,18 +3,12 @@
 namespace InnerCore.Api.HueSync.Models
 {
 	[DataContract]
-	public class RegistrationResponse
-	{
-		// todo: this is entirely unclear
+	public class RegistrationResponse: GenericError
+    {
+		[DataMember(Name = "registrationId")]
+		public string RegistrationId { get; set; }
 
-		[DataMember(Name = "success")]
-		public bool Success { get; set; }
-
-		[DataMember(Name = "token")]
+		[DataMember(Name = "accessToken")]
 		public string AccessToken { get; set; }
-
-
-		//"code": 16
-		//"message": "invalid state"
 	}
 }

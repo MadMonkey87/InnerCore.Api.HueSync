@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace InnerCore.Api.HueSync
 {
 	// todo: extend s.t the hue bridge details can be changed too
-	// todo: allow to rename the hdmi inputsA
+	// todo: allow to rename the hdmi inputs
 	public class HueSyncBoxClient
 	{
 		private string _accessToken;
@@ -37,16 +37,15 @@ namespace InnerCore.Api.HueSync
 			}
 		}
 
-		/// <summary>
-		/// Retrieves an access token from the box. This needs to be called first to initiate the registration progress and will return null. The user then has to
-		/// press and hold the physical button on the box until the led turns green. A further registration attempt then will return the access token which should be kept
-		/// safe for further authorization
-		/// </summary>
-		/// <param name="applicationName">any application name</param>
-		/// <param name="applicationSecret">it is not yet known how and where to register an application, but MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI= seems to work fine</param>
-		/// <param name="clientName">any client name</param>
-		/// <returns>null if the user needs to press the physical button on the box or the access token if the registration was successful</returns>
-		public async Task<string> RegisterAsync(string applicationName, string applicationSecret, string clientName)
+        /// <summary>
+        /// Retrieves an access token from the box. Enusre that the box is turned on (led is white) and then press and hold the physical button (~1 sec) on your sync box until the led flashes green.
+        /// Calling RegisterAsync then will return the access token which should be kept safe for further use
+        /// </summary>
+        /// <param name="applicationName">any application name</param>
+        /// <param name="applicationSecret">it is not yet known how and where to register an application, but MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI= seems to work fine</param>
+        /// <param name="clientName">any client name</param>
+        /// <returns>null if the user needs to press the physical button on the box or the access token if the registration was successful</returns>
+        public async Task<string> RegisterAsync(string applicationName, string applicationSecret, string clientName)
 		{
 			if (applicationName == null)
 				throw new ArgumentNullException(nameof(applicationName));
@@ -61,9 +60,13 @@ namespace InnerCore.Api.HueSync
 
 			var registrationResponse = await HandleResponseAsync<RegistrationResponse>(response);
 
-			Initialize(registrationResponse.AccessToken);
+            // all good, but the physical button has not yet been pressed
+            if(registrationResponse.Code == 16)
+            {
+                return null;
+            }
 
-			return registrationResponse.Success ? registrationResponse.AccessToken : null;
+            return registrationResponse.AccessToken;
 		}
 
 		public async Task<State> GetStateAsync()

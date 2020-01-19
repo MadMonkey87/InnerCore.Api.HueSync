@@ -6,7 +6,7 @@ namespace InnerCore.Api.HueSync.Models
 	public class GenericError
 	{
 		[DataMember(Name = "code")]
-		public int Code { get; set; }
+		public int? Code { get; set; }
 
 		[DataMember(Name = "message")]
 		public string Message { get; set; }
