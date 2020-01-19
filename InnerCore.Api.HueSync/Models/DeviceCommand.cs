@@ -11,7 +11,10 @@ namespace InnerCore.Api.HueSync.Models
 		[JsonConverter(typeof(StringEnumConverter))]
 		public DeviceAction Action { get; set; }
 
-		// todo: seems like this would be the way to apply the following values
-		//{     "update": {         "autoUpdateEnabled": true,         "autoUpdateTime": 2     } }
-}
+		[DataMember(Name = "ledMode")]
+		public int? LedMode { get; set; }
+
+		[DataMember(Name = "update")]
+		public Update Update { get; set; }
+	}
 }

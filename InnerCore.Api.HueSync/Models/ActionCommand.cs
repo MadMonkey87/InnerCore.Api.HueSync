@@ -34,12 +34,7 @@ namespace InnerCore.Api.HueSync.Models
 		[DataMember(Name = "music")]
 		public ModeOptionsMusic MusicOptions { get; set; }
 
-		// todo: looks like this would be the place to provide the options for the music and the ambient mode:
-		//"music": {
-		//	"intensity": "intense",
-		//	"palette": "melancholicEnergetic"
-		//},
-		//"ambient": {
-		//	"ambientShowType": 0,
+		[DataMember(Name = "music")]
+		public ModeOptionsAmbient AmbientOptions { get; set; }
 	}
 }
