@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using InnerCore.Api.HueSync.Models.Command;
+using InnerCore.Api.HueSync.Models.Enum;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Runtime.Serialization;

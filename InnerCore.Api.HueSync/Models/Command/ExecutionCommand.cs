@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using InnerCore.Api.HueSync.Models.Enum;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
-namespace InnerCore.Api.HueSync.Models
+namespace InnerCore.Api.HueSync.Models.Command
 {
 	[DataContract]
 	public class ExecutionCommand
@@ -22,15 +23,15 @@ namespace InnerCore.Api.HueSync.Models
 		public HdmiSource? HdmiSource { get; set; }
 
 		[DataMember(Name = "video")]
-		public ModeOptionsVideo VideoOptions { get; set; }
+		public ModeOptionsVideoCommand VideoOptions { get; set; }
 
 		[DataMember(Name = "game")]
-		public ModeOptionsVideo GameOptions { get; set; }
+		public ModeOptionsVideoCommand GameOptions { get; set; }
 
 		[DataMember(Name = "music")]
-		public ModeOptionsMusic MusicOptions { get; set; }
+		public ModeOptionsMusicCommand MusicOptions { get; set; }
 
 		[DataMember(Name = "ambient")]
-		public ModeOptionsAmbient AmbientOptions { get; set; }
+		public ModeOptionsAmbientCommand AmbientOptions { get; set; }
 	}
 }

@@ -14,7 +14,6 @@ namespace InnerCore.Api.HueSync.Models
 		[DataMember(Name = "groupId")]
 		public string GroupId { get; set; }
 
-
 		// todo: complete groups and the connection state
 
 		/*"groups": {

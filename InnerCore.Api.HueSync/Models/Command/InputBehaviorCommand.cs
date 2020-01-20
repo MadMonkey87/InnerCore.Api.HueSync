@@ -1,9 +1,9 @@
 ﻿using System.Runtime.Serialization;
 
-namespace InnerCore.Api.HueSync.Models
+namespace InnerCore.Api.HueSync.Models.Command
 {
 	[DataContract]
-	public class InputBehavior
+	public class InputBehaviorCommand
 	{
 		/// <summary>
 		/// Automatically switch to this input if a new signal is detected

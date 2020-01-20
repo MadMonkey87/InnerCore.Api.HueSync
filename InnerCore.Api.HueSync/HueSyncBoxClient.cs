@@ -4,6 +4,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using InnerCore.Api.HueSync.Models;
+using InnerCore.Api.HueSync.Models.Command;
+using InnerCore.Api.HueSync.Models.Enum;
 using Newtonsoft.Json;
 
 namespace InnerCore.Api.HueSync
@@ -92,11 +94,11 @@ namespace InnerCore.Api.HueSync
 			return await HandleResponseAsync<Hue>(response);
 		}
 
-		public async Task<Hdmi> GetHdmiAsync()
+		public async Task<HdmiCommand> GetHdmiAsync()
 		{
 			var client = await GetHttpClient().ConfigureAwait(false);
 			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/hdmi")).ConfigureAwait(false);
-			return await HandleResponseAsync<Hdmi>(response);
+			return await HandleResponseAsync<HdmiCommand>(response);
 		}
 
 		public async Task<Execution> GetExecutionAsync()

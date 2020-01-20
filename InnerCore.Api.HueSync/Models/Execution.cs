@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using InnerCore.Api.HueSync.Models.Command;
+using InnerCore.Api.HueSync.Models.Enum;
+using System.Runtime.Serialization;
 
 namespace InnerCore.Api.HueSync.Models
 {

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace InnerCore.Api.HueSync.Models
+namespace InnerCore.Api.HueSync.Models.Command
 {
 	[DataContract]
 	public class BehaviorCommand
@@ -24,15 +24,15 @@ namespace InnerCore.Api.HueSync.Models
 		public int? ArcBypassMode { get; set; }
 
 		[DataMember(Name = "input1")]
-		public InputBehavior Input1 { get; set; }
+		public InputBehaviorCommand Input1 { get; set; }
 
 		[DataMember(Name = "input2")]
-		public InputBehavior Input2 { get; set; }
+		public InputBehaviorCommand Input2 { get; set; }
 
 		[DataMember(Name = "input3")]
-		public InputBehavior Input3 { get; set; }
+		public InputBehaviorCommand Input3 { get; set; }
 
 		[DataMember(Name = "input4")]
-		public InputBehavior Input4 { get; set; }
+		public InputBehaviorCommand Input4 { get; set; }
 	}
 }

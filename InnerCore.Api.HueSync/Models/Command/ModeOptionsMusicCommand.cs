@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using InnerCore.Api.HueSync.Models.Enum;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
-namespace InnerCore.Api.HueSync.Models
+namespace InnerCore.Api.HueSync.Models.Command
 {
 	[DataContract]
-	public class ModeOptionsMusic
+	public class ModeOptionsMusicCommand
 	{
 		[DataMember(Name = "intensity")]
 		[JsonConverter(typeof(StringEnumConverter))]

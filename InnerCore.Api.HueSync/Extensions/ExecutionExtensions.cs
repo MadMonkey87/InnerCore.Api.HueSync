@@ -1,9 +1,11 @@
 ﻿using InnerCore.Api.HueSync.Models;
+using InnerCore.Api.HueSync.Models.Command;
+using InnerCore.Api.HueSync.Models.Enum;
 using System;
 
 namespace InnerCore.Api.HueSync.Extensions
 {
-	public static class ActionExtensions
+	public static class ExecutionExtensions
 	{
 		public static ExecutionCommand SetMode(this ExecutionCommand action, Mode mode)
 		{

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace InnerCore.Api.HueSync.Models
+namespace InnerCore.Api.HueSync.Models.Enum
 {
 	public enum Intensity
 	{

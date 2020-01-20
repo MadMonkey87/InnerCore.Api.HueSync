@@ -6,22 +6,13 @@ using System.Runtime.Serialization;
 namespace InnerCore.Api.HueSync.Models.Command
 {
 	[DataContract]
-	public class DeviceCommand
+	public class InputCommand
 	{
 		[DataMember(Name = "name")]
 		public string Name { get; set; }
 
-		[DataMember(Name = "action")]
+		[DataMember(Name = "type")]
 		[JsonConverter(typeof(StringEnumConverter))]
-		public DeviceAction? Action { get; set; }
-
-		/// <summary>
-		/// Enable/disable the led
-		/// </summary>
-		[DataMember(Name = "ledMode")]
-		public int? LedMode { get; set; }
-
-		[DataMember(Name = "update")]
-		public Update Update { get; set; }
+		public InputType Type { get; set; }
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using InnerCore.Api.HueSync.Models;
+using InnerCore.Api.HueSync.Models.Command;
 using System;
 
 namespace InnerCore.Api.HueSync.Extensions

@@ -1,5 +1,6 @@
 ﻿using InnerCore.Api.HueSync.Extensions;
-using InnerCore.Api.HueSync.Models;
+using InnerCore.Api.HueSync.Models.Command;
+using InnerCore.Api.HueSync.Models.Enum;
 using System;
 using System.Threading.Tasks;
 
@@ -18,17 +19,24 @@ namespace InnerCore.Api.HueSync.Sample
 			var device = await client.GetDeviceAsync();
 			Console.WriteLine($"found the device '{device.Name}'");
 
-			string accessToken = null;
+			Console.WriteLine("if you already have an access token you can enter it now or press enter to start the registration progress");
+			string accessToken = Console.ReadLine();
 
-			while (string.IsNullOrEmpty(accessToken))
+			if (string.IsNullOrEmpty(accessToken))
 			{
-				Console.WriteLine("please press and hold the button on the Hue Sync Box until the led turns green");
-				Console.WriteLine("press enter to continue the registration");
-				Console.ReadLine();
-				accessToken = await client.RegisterAsync("Demo", "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=", Environment.MachineName);
+				client.Initialize(accessToken);
 			}
-
-			// here you would usually persist the token and for the next app start you would call client.Initialize(accessToken) directly instead of registering
+			else
+			{
+				while (string.IsNullOrEmpty(accessToken))
+				{
+					Console.WriteLine("please press and hold the button on the Hue Sync Box until the led turns green");
+					Console.WriteLine("press enter to continue the registration");
+					Console.ReadLine();
+					accessToken = await client.RegisterAsync("Demo", "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=", Environment.MachineName);
+				}
+				// here you would usually persist the token and for the next app start you would call client.Initialize(accessToken) directly instead of registering
+			}
 
 			var state = await client.GetStateAsync();
 			Console.WriteLine("Here are some details about your Hue Sync Box:");
@@ -39,21 +47,20 @@ namespace InnerCore.Api.HueSync.Sample
 
 			Console.WriteLine("press enter to set the mode to 'game, intense', apply the max brightness and change the source to hdmi 2");
 			Console.ReadLine();
-			var action = new ActionCommand()
+			var action = new ExecutionCommand()
 				.SetMode(Mode.Game)
-				.SetIntensity(Intensity.Intense)
 				.SetBrightness(200)
 				.SetHdmiSource(HdmiSource.Input2);
 			await client.PerformActionAsync(action);
 
 			Console.WriteLine("press enter stop syncing");
 			Console.ReadLine();
-			action = new ActionCommand().SetMode(Mode.Passthrough);
+			action = new ExecutionCommand().SetMode(Mode.Passthrough);
 			await client.PerformActionAsync(action);
 
 			Console.WriteLine("press enter put the box into standby mode");
 			Console.ReadLine();
-			action = new ActionCommand().SetMode(Mode.PowerSave);
+			action = new ExecutionCommand().SetMode(Mode.PowerSave);
 			await client.PerformActionAsync(action);
 
 			Console.WriteLine("press enter to restart the box");

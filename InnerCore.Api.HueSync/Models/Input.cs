@@ -1,19 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using InnerCore.Api.HueSync.Models.Command;
+using InnerCore.Api.HueSync.Models.Enum;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
 namespace InnerCore.Api.HueSync.Models
 {
 	[DataContract]
-	public class Input
+	public class Input : InputCommand
 	{
-		[DataMember(Name = "name")]
-		public string Name { get; set; }
-
-		[DataMember(Name = "type")]
-		[JsonConverter(typeof(StringEnumConverter))]
-		public InputType Type { get; set; }
-
 		[DataMember(Name = "status")]
 		[JsonConverter(typeof(StringEnumConverter))]
 		public InputStatus Status { get; set; }
