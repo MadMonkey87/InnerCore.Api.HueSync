@@ -38,26 +38,28 @@ As the client is now authorized you can retrieve all details of your device (che
 
 You also can perform some actions on the sync box. They are splitted into the following:
 
-### Actions
-These command allow you to change the current state, i.e enable/disable syncing, change the input, mode or intensity. You can send them one by one but you also can combine them:
+### Execution commands
+These commands allow you to change the current state, i.e enable/disable syncing, change the input, mode or intensity. You can send them one by one but you also can combine them:
 
-	var action = new ActionCommand()
+	var command = new ExecutionCommand()
 		.SetMode(Mode.Game)
 		.SetIntensity(Intensity.Intense)
 		.SetBrightness(200)
 		.SetHdmiSource(HdmiSource.Input2);
-	await client.PerformActionAsync(action);
+	await client.PerformExecutionCommandAsync(command);
 
-### Behaviours
-These are equivalent to settings and just like actions, they also can get combined:
+### Behavior command
+These are equivalent to settings and just like execution commands, they also can get combined:
 
-	var behaviour = new Behaviour().SetArcBypass(true).SetCecPowerSave(false);
-	client.ApplyBehaviourAsync(behaviour);
+	var command = new BehaviorCommand()
+		.SetArcBypass(true)
+		.SetCecPowerSave(false);
+	client.PerformBehaviorCommandAsync(command);
 
-### Device actions
-These actions directly affect the device, like rebooting it or checking for firmware updates:
+### Device commands
+These commands directly affect the device, like rebooting it or checking for firmware updates:
 
-    await client.PerformDeviceActionAsync(DeviceAction.Restart);
+    await client.PerformDeviceCommandAsync(DeviceAction.Restart);
 
 ### Discovered new features
 The api reveals a few features that the official app does not yet provide but that are already availabke trough the api:

@@ -2,11 +2,11 @@
 <package >
   <metadata>
     <id>InnerCore.Api.HueSync</id>
-    <version>0.9.2-beta</version>
+    <version>0.9.3-beta</version>
     <title>InnerCore.Api.HueSync</title>
     <authors>Philippe Wechsler</authors>
     <owners>Philippe Wechsler</owners>
-    <licenseUrl>https://github.com/MadMonkey87/InnerCore.Api.HueSync/blob/master/LICENSE.txt</licenseUrl>
+    <licenseUrl>https://github.com/MadMonkey87/InnerCore.Api.HueSync/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/MadMonkey87/InnerCore.Api.HueSync</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A simple library to communicate with Philips Hue Sync Box</description>
