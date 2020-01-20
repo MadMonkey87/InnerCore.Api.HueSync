@@ -5,15 +5,11 @@ using System.Runtime.Serialization;
 namespace InnerCore.Api.HueSync.Models
 {
 	[DataContract]
-	public class ActionCommand
+	public class ExecutionCommand
 	{
 		[DataMember(Name = "mode")]
 		[JsonConverter(typeof(StringEnumConverter))]
 		public Mode? Mode { get; set; }
-
-		[DataMember(Name = "intensity")]
-		[JsonConverter(typeof(StringEnumConverter))]
-		public Intensity? Intensity { get; set; }
 
 		/// <summary>
 		/// 0-200
@@ -34,7 +30,7 @@ namespace InnerCore.Api.HueSync.Models
 		[DataMember(Name = "music")]
 		public ModeOptionsMusic MusicOptions { get; set; }
 
-		[DataMember(Name = "music")]
+		[DataMember(Name = "ambient")]
 		public ModeOptionsAmbient AmbientOptions { get; set; }
 	}
 }

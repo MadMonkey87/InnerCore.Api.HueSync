@@ -6,11 +6,8 @@ using System.Runtime.Serialization;
 namespace InnerCore.Api.HueSync.Models
 {
 	[DataContract]
-	public class Device
+	public class Device : DeviceCommand
 	{
-		[DataMember(Name = "name")]
-		public string Name { get; set; }
-
 		[DataMember(Name = "deviceType")]
 		public string DeviceType { get; set; }
 
@@ -38,21 +35,11 @@ namespace InnerCore.Api.HueSync.Models
 		[DataMember(Name = "updateableBuildNumber")]
 		public int? UpdateableBuildNumber { get; set; }
 
-		[DataMember(Name = "update")]
-		public Update Update { get; set; }
-
-		[DataMember(Name = "ledMode")]
-		public int LedMode { get; set; }
-
 		[DataMember(Name = "wifiState")]
 		[JsonConverter(typeof(StringEnumConverter))]
 		public WifiState WifiState { get; set; }
 
 		[DataMember(Name = "termsAgreed")]
 		public bool TermsAgreed { get; set; }
-
-		[DataMember(Name = "action")]
-		[JsonConverter(typeof(StringEnumConverter))]
-		public DeviceAction Action { get; set; }
 	}
 }

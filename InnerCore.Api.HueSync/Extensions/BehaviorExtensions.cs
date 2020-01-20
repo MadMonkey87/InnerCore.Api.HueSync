@@ -5,7 +5,7 @@ namespace InnerCore.Api.HueSync.Extensions
 {
 	public static class BehaviorExtensions
 	{
-		public static Behavior SetInactivePowerSave(this Behavior behavior, bool enable)
+		public static BehaviorCommand SetInactivePowerSave(this BehaviorCommand behavior, bool enable)
 		{
 			if (behavior == null)
 			{
@@ -16,7 +16,7 @@ namespace InnerCore.Api.HueSync.Extensions
 			return behavior;
 		}
 
-		public static Behavior SetCecPowerSave(this Behavior behavior, bool enable)
+		public static BehaviorCommand SetCecPowerSave(this BehaviorCommand behavior, bool enable)
 		{
 			if (behavior == null)
 			{
@@ -27,7 +27,7 @@ namespace InnerCore.Api.HueSync.Extensions
 			return behavior;
 		}
 
-		public static Behavior SetUsbPowerSave(this Behavior behavior, bool enable)
+		public static BehaviorCommand SetUsbPowerSave(this BehaviorCommand behavior, bool enable)
 		{
 			if (behavior == null)
 			{
@@ -38,7 +38,7 @@ namespace InnerCore.Api.HueSync.Extensions
 			return behavior;
 		}
 
-		public static Behavior SetHpdInputSwitch(this Behavior behavior, bool enable)
+		public static BehaviorCommand SetHpdInputSwitch(this BehaviorCommand behavior, bool enable)
 		{
 			if (behavior == null)
 			{
@@ -49,7 +49,7 @@ namespace InnerCore.Api.HueSync.Extensions
 			return behavior;
 		}
 
-		public static Behavior SetArcBypass(this Behavior behavior, bool enable)
+		public static BehaviorCommand SetArcBypass(this BehaviorCommand behavior, bool enable)
 		{
 			if (behavior == null)
 			{

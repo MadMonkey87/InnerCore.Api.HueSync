@@ -106,11 +106,11 @@ namespace InnerCore.Api.HueSync
 			return await HandleResponseAsync<Execution>(response);
 		}
 
-		public async Task<Behavior> GetBehaviorAsync()
+		public async Task<BehaviorCommand> GetBehaviorAsync()
 		{
 			var client = await GetHttpClient().ConfigureAwait(false);
 			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/behavior")).ConfigureAwait(false);
-			return await HandleResponseAsync<Behavior>(response);
+			return await HandleResponseAsync<BehaviorCommand>(response);
 		}
 
 		public async Task<Registrations> GetRegistrationsAsync()
@@ -120,7 +120,7 @@ namespace InnerCore.Api.HueSync
 			return await HandleResponseAsync<Registrations>(response);
 		}
 
-		public async Task PerformActionAsync(ActionCommand action)
+		public async Task PerformActionAsync(ExecutionCommand action)
 		{
 			if (action == null)
 			{
@@ -133,7 +133,7 @@ namespace InnerCore.Api.HueSync
 			await HandleResponseAsync(response);
 		}
 
-		public async Task ApplyBehaviorAsync(Behavior behavior)
+		public async Task ApplyBehaviorAsync(BehaviorCommand behavior)
 		{
 			if (behavior == null)
 			{

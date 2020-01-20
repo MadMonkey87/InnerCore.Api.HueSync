@@ -5,7 +5,7 @@ namespace InnerCore.Api.HueSync.Extensions
 {
 	public static class ActionExtensions
 	{
-		public static ActionCommand SetMode(this ActionCommand action, Mode mode)
+		public static ExecutionCommand SetMode(this ExecutionCommand action, Mode mode)
 		{
 			if (action == null)
 			{
@@ -16,18 +16,7 @@ namespace InnerCore.Api.HueSync.Extensions
 			return action;
 		}
 
-		public static ActionCommand SetIntensity(this ActionCommand action, Intensity intensity)
-		{
-			if (action == null)
-			{
-				throw new ArgumentNullException(nameof(action));
-			}
-
-			action.Intensity = intensity;
-			return action;
-		}
-
-		public static ActionCommand SetBrightness(this ActionCommand action, int brightness)
+		public static ExecutionCommand SetBrightness(this ExecutionCommand action, int brightness)
 		{
 			if (action == null)
 			{
@@ -38,7 +27,7 @@ namespace InnerCore.Api.HueSync.Extensions
 			return action;
 		}
 
-		public static ActionCommand SetHdmiSource(this ActionCommand action, HdmiSource source)
+		public static ExecutionCommand SetHdmiSource(this ExecutionCommand action, HdmiSource source)
 		{
 			if (action == null)
 			{

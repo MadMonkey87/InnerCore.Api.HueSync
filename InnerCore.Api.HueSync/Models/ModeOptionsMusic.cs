@@ -13,6 +13,6 @@ namespace InnerCore.Api.HueSync.Models
 
 		[DataMember(Name = "palette")]
 		[JsonConverter(typeof(StringEnumConverter))]
-		public Palette Palette { get; set; }
+		public Palette? Palette { get; set; }
 	}
 }

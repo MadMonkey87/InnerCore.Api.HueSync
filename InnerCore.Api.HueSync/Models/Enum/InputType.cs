@@ -2,7 +2,6 @@
 
 namespace InnerCore.Api.HueSync.Models
 {
-	// todo: check all api values
 	public enum InputType
 	{
 		[EnumMember(Value = "generic")]
