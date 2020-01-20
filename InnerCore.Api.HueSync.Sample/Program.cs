@@ -22,7 +22,7 @@ namespace InnerCore.Api.HueSync.Sample
 			Console.WriteLine("if you already have an access token you can enter it now or press enter to start the registration progress");
 			string accessToken = Console.ReadLine();
 
-			if (string.IsNullOrEmpty(accessToken))
+			if (!string.IsNullOrEmpty(accessToken))
 			{
 				client.Initialize(accessToken);
 			}
@@ -51,21 +51,17 @@ namespace InnerCore.Api.HueSync.Sample
 				.SetMode(Mode.Game)
 				.SetBrightness(200)
 				.SetHdmiSource(HdmiSource.Input2);
-			await client.PerformActionAsync(action);
+			await client.ApplyExecutionCommandAsync(action);
 
 			Console.WriteLine("press enter stop syncing");
 			Console.ReadLine();
 			action = new ExecutionCommand().SetMode(Mode.Passthrough);
-			await client.PerformActionAsync(action);
+			await client.ApplyExecutionCommandAsync(action);
 
 			Console.WriteLine("press enter put the box into standby mode");
 			Console.ReadLine();
 			action = new ExecutionCommand().SetMode(Mode.PowerSave);
-			await client.PerformActionAsync(action);
-
-			Console.WriteLine("press enter to restart the box");
-			Console.ReadLine();
-			await client.PerformDeviceActionAsync(DeviceAction.Restart);
+			await client.ApplyExecutionCommandAsync(action);
 
 			Console.WriteLine("press enter to complete this demo");
 			Console.ReadLine();

@@ -122,38 +122,55 @@ namespace InnerCore.Api.HueSync
 			return await HandleResponseAsync<Registrations>(response);
 		}
 
-		public async Task PerformActionAsync(ExecutionCommand action)
+		public async Task ApplyExecutionCommandAsync(ExecutionCommand command)
 		{
-			if (action == null)
+			if (command == null)
 			{
-				throw new ArgumentNullException(nameof(action));
+				throw new ArgumentNullException(nameof(command));
 			}
 			CheckInitialized();
 
 			var client = await GetHttpClient().ConfigureAwait(false);
-			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/execution"), SerializeRequest(action)).ConfigureAwait(false);
+			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/execution"), SerializeRequest(command)).ConfigureAwait(false);
 			await HandleResponseAsync(response);
 		}
 
-		public async Task ApplyBehaviorAsync(BehaviorCommand behavior)
+		public async Task ApplyBehaviourCommandAsync(BehaviorCommand command)
 		{
-			if (behavior == null)
+			if (command == null)
 			{
-				throw new ArgumentNullException(nameof(behavior));
+				throw new ArgumentNullException(nameof(command));
 			}
 			CheckInitialized();
 
 			var client = await GetHttpClient().ConfigureAwait(false);
-			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/behavior"), SerializeRequest(behavior)).ConfigureAwait(false);
+			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/behavior"), SerializeRequest(command)).ConfigureAwait(false);
 			await HandleResponseAsync(response);
 		}
 
-		public async Task PerformDeviceActionAsync(DeviceAction action)
+		public async Task ApplyHdmiCommandAsync(HdmiCommand command)
 		{
+			if (command == null)
+			{
+				throw new ArgumentNullException(nameof(command));
+			}
 			CheckInitialized();
 
 			var client = await GetHttpClient().ConfigureAwait(false);
-			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/behavior"), SerializeRequest(new DeviceCommand() { Action = action })).ConfigureAwait(false);
+			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/hdmi"), SerializeRequest(command)).ConfigureAwait(false);
+			await HandleResponseAsync(response);
+		}
+
+		public async Task ApplyDeviceCommandAsync(DeviceCommand command)
+		{
+			if (command == null)
+			{
+				throw new ArgumentNullException(nameof(command));
+			}
+			CheckInitialized();
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/device"), SerializeRequest(command)).ConfigureAwait(false);
 			await HandleResponseAsync(response);
 		}
 
