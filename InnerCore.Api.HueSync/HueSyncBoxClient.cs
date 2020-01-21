@@ -5,14 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using InnerCore.Api.HueSync.Models;
 using InnerCore.Api.HueSync.Models.Command;
-using InnerCore.Api.HueSync.Models.Enum;
 using Newtonsoft.Json;
 
 namespace InnerCore.Api.HueSync
 {
 	// todo: extend s.t the hue bridge details can be changed too
-	// todo: allow to rename the hdmi inputs
-	public class HueSyncBoxClient
+    public class HueSyncBoxClient
 	{
 		private string _accessToken;
 
