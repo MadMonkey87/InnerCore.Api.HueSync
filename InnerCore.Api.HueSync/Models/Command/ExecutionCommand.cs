@@ -33,5 +33,8 @@ namespace InnerCore.Api.HueSync.Models.Command
 
 		[DataMember(Name = "ambient")]
 		public ModeOptionsAmbientCommand AmbientOptions { get; set; }
+
+		[DataMember(Name = "syncActive")]
+		public bool? SyncActive { get; set; }
 	}
 }

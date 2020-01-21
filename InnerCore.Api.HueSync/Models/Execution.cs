@@ -10,9 +10,6 @@ namespace InnerCore.Api.HueSync.Models
 		[DataMember(Name = "lastSyncMode")]
 		public Mode LastSyncMode { get; set; }
 
-		[DataMember(Name = "syncActive")]
-		public bool SyncActive { get; set; }
-
 		[DataMember(Name = "hdmiActive")]
 		public bool HdmiActive { get; set; }
 	}

@@ -44,6 +44,7 @@ These commands allow you to change the current state, i.e enable/disable syncing
 	var command = new ExecutionCommand()
 		.SetMode(Mode.Game)
 		.SetIntensity(Intensity.Intense)
+		.SetSyncActive(true)
 		.SetBrightness(200)
 		.SetHdmiSource(HdmiSource.Input2);
 	await client.PerformExecutionCommandAsync(command);
@@ -61,7 +62,7 @@ These commands directly affect the device, like rebooting it or checking for fir
 
     await client.PerformDeviceCommandAsync(DeviceAction.Restart);
 
-### Discovered new features
+### Findings
 The api reveals a few features that the official app does not yet provide but that are already availabke trough the api:
  - characteristics of the current input: in the State.Hdmi.ContentSpecs field you can see the resolution, colormode and refreshrate of the current input (seems a little buggy, sdr and hdr are correct, dolby vision however is indicated as 'sdr' although it gets passed trough just fine inclusive syncing).
  - in the music mode there is also the possability to choose a color palette, but currently only one is known (maybe it will be possible to create custom ones)
@@ -69,12 +70,13 @@ The api reveals a few features that the official app does not yet provide but th
  - there is an ambient mode where the box performs some animations at it's own, not depending on the input. It is not yet clear how that works exactly, but the effect can be controlled using two parameters:
    ambientShowType: somehow controlls the speed and colors of the animations. Value 1 & 2 are flickering, 3 & 4 is almost a solid blue, 5 & 6 is a slowly changing animation between two colors. Bigger values change the used colors and speed. 
    ambientModeType: this one is even more unclear and does not seem to have a direct effect, but 1 seems to be a good value as ambientShowType has no effect otherwise.
+ - start/stopping the light sync seems to work only if it is the only command
 
 ## License
 
 InnerCore.Api.HueSync is licensed under [MIT](http://www.opensource.org/licenses/mit-license.php "Read more about the MIT license form"). Refer to [license.txt](https://github.com/MadMonkey87/InnerCore.Api.HueSync/blob/master/LICENSE.txt) for more information.
 
-## contributions
+## Contributions
 Contributions are welcome. Fork this repository and send a pull request if you have something useful to add.
 
 [azure build]: https://innercore.visualstudio.com/InnerCore.Api.HueSync/_apis/build/status/InnerCore.Api.HueSync?branchName=master

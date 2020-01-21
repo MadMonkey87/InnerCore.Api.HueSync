@@ -7,7 +7,18 @@ namespace InnerCore.Api.HueSync.Extensions
 {
 	public static class ExecutionExtensions
 	{
-		public static ExecutionCommand SetMode(this ExecutionCommand action, Mode mode)
+        public static ExecutionCommand SetSyncActive(this ExecutionCommand action, bool enable)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            action.SyncActive = enable;
+            return action;
+        }
+
+        public static ExecutionCommand SetMode(this ExecutionCommand action, Mode mode)
 		{
 			if (action == null)
 			{
