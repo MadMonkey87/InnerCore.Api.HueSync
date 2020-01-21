@@ -25,6 +25,11 @@ namespace InnerCore.Api.HueSync.Extensions
                 throw new ArgumentNullException(nameof(device));
             }
 
+            if(action == DeviceAction.None)
+            {
+                throw new InvalidOperationException($"{action} cannot be set as device action");
+            }
+
             device.Action = action;
             return device;
         }

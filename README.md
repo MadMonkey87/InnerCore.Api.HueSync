@@ -4,15 +4,6 @@ InnerCore.Api.HueSync [![Build Status][azure build]][project]	[![NuGet][nuget ba
 Open source library for communication with the Philips Hue Sync Box. This library allows you to perform the same actions as you could do with the official app and even more!
 
 Important: there is no official documentation available yet. Most features have been discovered however (credit: https://github.com/ebaauw/homebridge-hue/issues/552). 
-
-## Limitations
- - this api is not yet official and thus there is no warranty at all and you are acting at your own risk
- - it is not yet known how and where to retrieve an appSecret officially, but the provided one seems to work just fine
- - it is likely that there is a discovery mechanism similar to the one of the hue bridge but for now this remains unknown
- - the api reveals a few features that are not yet available in the official app, like an "ambient mode" and "patterns" for the music mode. As not all values are known yet this remains unusable for now
-
-## Status
-This library is currently under developement and intensive testing. Some parts work some not and many interfaces still might change a lot for the final releas
  
 ## Usage
 First you need to know the ip address of your hue sync box (in the official app, go to settings -> devices) to instanciate the client:
@@ -71,6 +62,12 @@ The api reveals a few features that the official app does not yet provide but th
    ambientShowType: somehow controlls the speed and colors of the animations. Value 1 & 2 are flickering, 3 & 4 is almost a solid blue, 5 & 6 is a slowly changing animation between two colors. Bigger values change the used colors and speed. 
    ambientModeType: this one is even more unclear and does not seem to have a direct effect, but 1 seems to be a good value as ambientShowType has no effect otherwise.
  - start/stopping the light sync seems to work only if it is the only command
+
+ ## Limitations
+ - this api is not yet official and thus there is no warranty at all and you are acting at your own risk
+ - it is not yet known how and where to retrieve an appSecret officially, but the provided one seems to work just fine
+ - it is likely that there is a discovery mechanism similar to the one of the hue bridge but for now this remains unknown
+ - the api reveals a few features that are not yet available in the official app, like an "ambient mode" and "patterns" for the music mode. As not all values are known yet this remains unusable for now
 
 ## License
 
