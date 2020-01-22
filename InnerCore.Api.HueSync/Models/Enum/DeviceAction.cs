@@ -5,12 +5,12 @@ namespace InnerCore.Api.HueSync.Models.Enum
 	public enum DeviceAction
 	{
 		[EnumMember(Value = "none")]
-		None,
+		None = 1,
 
 		[EnumMember(Value = "checkForFirmwareUpdates")]
-		CheckFirmwareUpdates,
+		CheckFirmwareUpdates = 2,
 
 		[EnumMember(Value = "doSoftwareRestart")]
-		Restart
+		Restart = 3
 	}
 }

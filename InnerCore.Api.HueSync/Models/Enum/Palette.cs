@@ -6,6 +6,6 @@ namespace InnerCore.Api.HueSync.Models.Enum
 	public enum Palette
 	{
 		[EnumMember(Value = "melancholicEnergetic")]
-		MelancholicEnergetic
+		MelancholicEnergetic = 1,
 	}
 }

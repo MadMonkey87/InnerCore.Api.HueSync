@@ -5,12 +5,12 @@ namespace InnerCore.Api.HueSync.Models.Enum
 	public enum InputStatus
 	{
 		[EnumMember(Value = "unplugged")]
-		Unplugged,
+		Unplugged = 1,
 
 		[EnumMember(Value = "plugged")]
-		Plugged,
+		Plugged = 2,
 
 		[EnumMember(Value = "linked")]
-		Linked
+		Linked = 3
 	}
 }

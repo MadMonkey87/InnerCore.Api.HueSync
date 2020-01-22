@@ -5,54 +5,54 @@ namespace InnerCore.Api.HueSync.Models.Enum
 	public enum InputType
 	{
 		[EnumMember(Value = "generic")]
-		Generic,
+		Generic = 1,
 
 		[EnumMember(Value = "xbox")]
-		Xbox,
+		Xbox = 2,
 
 		[EnumMember(Value = "playstation")]
-		Playstation,
+		Playstation = 3,
 
 		[EnumMember(Value = "nintendoswitch")]
-		NintendoSwitch,
+		NintendoSwitch = 4,
 
 		[EnumMember(Value = "phone")]
-		Smartphone,
+		Smartphone = 5,
 
 		[EnumMember(Value = "desktop")]
-		Desktop,
+		Desktop = 6,
 
 		[EnumMember(Value = "laptop")]
-		Laptop,
+		Laptop = 7,
 
 		[EnumMember(Value = "appletv")]
-		AppleTv,
+		AppleTv = 8,
 
 		[EnumMember(Value = "roku")]
-		Roku,
+		Roku = 9,
 
 		[EnumMember(Value = "shield")]
-		NvidiaShield,
+		NvidiaShield = 10,
 
 		[EnumMember(Value = "chromecast")]
-		ChromeCast,
+		ChromeCast = 11,
 
 		[EnumMember(Value = "firetv")]
-		FireTv,
+		FireTv = 12,
 
 		[EnumMember(Value = "diskplayer")]
-		DvDPlayer,
+		DvDPlayer = 13,
 
 		[EnumMember(Value = "settopbox")]
-		SetTopBox,
+		SetTopBox = 14,
 
 		[EnumMember(Value = "satellite")]
-		Satellite,
+		Satellite = 15,
 
 		[EnumMember(Value = "avreceiver")]
-		AvReceiver,
+		AvReceiver = 16,
 
 		[EnumMember(Value = "soundbar")]
-		Soundbar
+		Soundbar = 17
 	}
 }

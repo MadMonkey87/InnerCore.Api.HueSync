@@ -5,15 +5,15 @@ namespace InnerCore.Api.HueSync.Models.Enum
 	public enum Intensity
 	{
 		[EnumMember(Value = "subtle")]
-		Subtle,
+		Subtle = 1,
 
 		[EnumMember(Value = "moderate")]
-		Moderate,
+		Moderate = 2,
 
 		[EnumMember(Value = "high")]
-		High,
+		High = 3,
 
 		[EnumMember(Value = "intense")]
-		Intense,
+		Intense = 4
 	}
 }

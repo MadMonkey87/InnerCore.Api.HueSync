@@ -5,9 +5,9 @@ namespace InnerCore.Api.HueSync.Models.Enum
 	public enum WifiState
 	{
 		[EnumMember(Value = "wan")]
-		Wan,
+		Wan = 1,
 
 		[EnumMember(Value = "lan")]
-		Lan
+		Lan = 2
 	}
 }
