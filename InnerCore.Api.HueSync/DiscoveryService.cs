@@ -15,46 +15,51 @@ namespace InnerCore.Api.HueSync
 {
 	public static class DiscoveryService
 	{
-        private const int port = 8888;
-        private const string discoveryRequest = "{\"operation\": null}";
+		private const int port = 8888;
+		private const string discoveryRequest = "{\"operation\": null}";
+
+		public static async Task<IEnumerable<DiscoveryResult>> Discover(TimeSpan timeout)
+		{
+			return await Discover(new CancellationTokenSource(timeout).Token);
+		}
 
 		public static async Task<IEnumerable<DiscoveryResult>> Discover(CancellationToken cancellationToken)
 		{
 			var result = new List<DiscoveryResult>();
 
-            using(var client = new UdpClient(port))
-            {
-                try
-                {
-                    var discoveryMessage = Encoding.ASCII.GetBytes(discoveryRequest);
-                    await client
-                        .SendAsync(discoveryMessage, discoveryMessage.Length, new IPEndPoint(IPAddress.Broadcast, port))
-                        .WithCancellation(cancellationToken);
+			using (var client = new UdpClient(port))
+			{
+				try
+				{
+					var discoveryMessage = Encoding.ASCII.GetBytes(discoveryRequest);
+					await client
+						.SendAsync(discoveryMessage, discoveryMessage.Length, new IPEndPoint(IPAddress.Broadcast, port))
+						.WithCancellation(cancellationToken);
 
-                    while (!cancellationToken.IsCancellationRequested)
-                    {
-                        var receiveResult = await client.ReceiveAsync().WithCancellation(cancellationToken);
-                        var clientRequest = Encoding.ASCII.GetString(receiveResult.Buffer);
+					while (!cancellationToken.IsCancellationRequested)
+					{
+						var receiveResult = await client.ReceiveAsync().WithCancellation(cancellationToken);
+						var clientRequest = Encoding.ASCII.GetString(receiveResult.Buffer);
 
-                        try
-                        {
-                            var discoveryResult = JsonConvert.DeserializeObject<DiscoveryResult>(clientRequest);
-                            discoveryResult.IpAddress = receiveResult.RemoteEndPoint.Address.ToString();
-                            result.Add(discoveryResult);
-                        }
-                        catch (JsonSerializationException ex)
-                        {
-                            // at that point we received an invalid message, usually this is just our own discovery message or someone other than a hue sync box
-                        }
-                    }
-                }
-                catch (OperationCanceledException)
-                {
-                    client.Close();
-                }
-            }
+						try
+						{
+							var discoveryResult = JsonConvert.DeserializeObject<DiscoveryResult>(clientRequest);
+							discoveryResult.IpAddress = receiveResult.RemoteEndPoint.Address.ToString();
+							result.Add(discoveryResult);
+						}
+						catch (JsonSerializationException ex)
+						{
+							// at that point we received an invalid message, usually this is just our own discovery message or someone other than a hue sync box
+						}
+					}
+				}
+				catch (OperationCanceledException)
+				{
+					client.Close();
+				}
+			}
 
-            return result.ToArray();
+			return result.ToArray();
 		}
-    }
+	}
 }
