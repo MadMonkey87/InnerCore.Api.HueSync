@@ -6,7 +6,12 @@ Open source library for communication with the Philips Hue Sync Box. This librar
 Important: there is no official documentation available yet. Most features have been discovered however (credit: https://github.com/ebaauw/homebridge-hue/issues/552). 
  
 ## Usage
-First you need to know the ip address of your hue sync box (in the official app, go to settings -> devices) to instanciate the client:
+First you need to know the ip address of your hue sync box. The following code will search for devices in your network:
+
+	var discoveryResults = await DiscoveryService.Discover(TimeSpan.FromSeconds(3));
+	var ip = discoveryResults.First().IpAddress;
+
+After that you can use the retrieved ip address to instanciate the actual client:
 
 	var client = new HueSyncBoxClient(ip);
 
@@ -66,7 +71,6 @@ The api reveals a few features that the official app does not yet provide but th
  ## Limitations
  - this api is not yet official and thus there is no warranty at all and you are acting at your own risk
  - it is not yet known how and where to retrieve an appSecret officially, but the provided one seems to work just fine
- - it is likely that there is a discovery mechanism similar to the one of the hue bridge but for now this remains unknown
  - the api reveals a few features that are not yet available in the official app, like an "ambient mode" and "patterns" for the music mode. As not all values are known yet this remains unusable for now
 
 ## License
