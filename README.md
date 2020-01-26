@@ -23,8 +23,9 @@ Next you'll need to register on the sync box in order to retrieve an access toke
 
 	accessToken = await client.RegisterAsync("Demo", "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=", Environment.MachineName);
 
-Note 1: you can choose whatever you like as the app- and the client name but you need a proper app secret. I guess later on you'll have to register at philips in order to get one but for now you can use the one above.
-Note 2: the returned access token will be null if the button has not yet been pressed
+*Note 1: you can choose whatever you like as the app- and the client name but you need a proper app secret. I guess later on you'll have to register at philips in order to get one but for now you can use the one above.*
+
+*Note 2: the returned access token will be null if the button has not yet been pressed.*
 
 Keep the access token save as you can use it later on! Instead of registering you can simply call HueSyncBoxClient.Initialize() with your token instead.
 
