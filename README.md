@@ -19,13 +19,17 @@ If you want to test the connection you might fetch some basic details of your de
 
 	var device = await  client.GetDeviceAsync();
 
-Next you'll need to register on the sync box in order to retrieve an access token for further request. Enusre that the box is turned on (led is white) and then press and hold the physical button (~1 sec) on your sync box until the led flashes green. After that you can retrieve the access token using
+Next you'll need to register on the sync box in order to retrieve an access token for further request. Ensure that the box is turned on (led is white) and then press and hold the physical button (~1 sec) on your sync box until the led flashes green. After that you can retrieve the access token using
 
 	accessToken = await client.RegisterAsync("Demo", "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=", Environment.MachineName);
 
 *Note 1: you can choose whatever you like as the app- and the client name but you need a proper app secret. I guess later on you'll have to register at philips in order to get one but for now you can use the one above.*
 
 *Note 2: the returned access token will be null if the button has not yet been pressed.*
+
+*Note 3: you might need to be quick!*
+
+*Note 4: if the led turns red after a quick green flash: relax, all good!*
 
 Keep the access token save as you can use it later on! Instead of registering you can simply call HueSyncBoxClient.Initialize() with your token instead.
 
