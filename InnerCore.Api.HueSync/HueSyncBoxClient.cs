@@ -66,6 +66,8 @@ namespace InnerCore.Api.HueSync
                 return null;
             }
 
+			Initialize(registrationResponse.AccessToken);
+
             return registrationResponse.AccessToken;
 		}
 
