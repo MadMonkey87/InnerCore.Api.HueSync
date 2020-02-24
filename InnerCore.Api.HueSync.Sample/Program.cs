@@ -48,12 +48,19 @@ namespace InnerCore.Api.HueSync.Sample
 			}
 			else
 			{
+				const string appName = "Demo";
+				const string applicationSecret = "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=";
+				string applicationDevice = Environment.MachineName;
+
+				// start the registration
+				accessToken = await client.RegisterAsync(appName, applicationSecret, applicationDevice);
+
 				while (string.IsNullOrEmpty(accessToken))
 				{
 					Console.WriteLine("please press and hold the button on the Hue Sync Box until the led turns green");
-					Console.WriteLine("press enter to continue the registration");
+					Console.WriteLine("press enter to continue the registration (be quick!)");
 					Console.ReadLine();
-					accessToken = await client.RegisterAsync("Demo", "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=", Environment.MachineName);
+					accessToken = await client.RegisterAsync(appName, applicationSecret, applicationDevice);
 				}
 				// here you would usually persist the token and for the next app start you would call client.Initialize(accessToken) directly instead of registering
 			}
