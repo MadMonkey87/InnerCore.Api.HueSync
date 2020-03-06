@@ -51,5 +51,24 @@ namespace InnerCore.Api.HueSync.Models.Command
 
 		[DataMember(Name = "toggleHdmiActive")]
 		public bool? ToggleHdmiActive { get; set; }
+
+		[DataMember(Name = "cycleSyncMode")]
+		public Cycle? CycleSyncMode { get; set; }
+
+		[DataMember(Name = "cycleHdmiSource")]
+		public Cycle? CycleHdmiSource { get; set; }
+
+		[DataMember(Name = "incrementBrightness")]
+		public int? IncrementBrightness { get; set; }
+
+		[DataMember(Name = "cycleIntensity")]
+		public Cycle? CycleIntensity { get; set; }
+
+		[DataMember(Name = "intensity")]
+		[JsonConverter(typeof(StringEnumConverter))]
+		public Intensity? Intensity { get; set; }
+
+		[DataMember(Name = "preset")]
+		public string Preset { get; set; }
 	}
 }
