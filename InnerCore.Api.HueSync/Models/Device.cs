@@ -46,5 +46,8 @@ namespace InnerCore.Api.HueSync.Models
 
 		[DataMember(Name = "capabilities")]
 		public Capabilities Capabilities { get; set; }
+
+		[DataMember(Name = "beta")]
+		public bool? Beta { get; set; }
 	}
 }

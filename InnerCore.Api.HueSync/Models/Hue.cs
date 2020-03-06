@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Data;
+using System.Runtime.Serialization;
 
 namespace InnerCore.Api.HueSync.Models
 {
@@ -14,16 +15,7 @@ namespace InnerCore.Api.HueSync.Models
 		[DataMember(Name = "groupId")]
 		public string GroupId { get; set; }
 
-		// todo: complete groups and the connection state
-
-		/*"groups": {
-			"8": {
-				"name": "Entertainment Light",
-				"numLights": 3,
-				"active": false
-			}
-		},*/
-
-		//"connectionState": "connected"
+		[DataMember(Name = "connectionState")]
+		public ConnectionState ConnectionState { get; set; }
 	}
 }
