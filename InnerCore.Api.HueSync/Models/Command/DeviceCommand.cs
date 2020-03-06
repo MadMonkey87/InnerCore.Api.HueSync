@@ -16,7 +16,7 @@ namespace InnerCore.Api.HueSync.Models.Command
 		public DeviceAction? Action { get; set; }
 
 		/// <summary>
-		/// Enable/disable the led
+		/// 1 = on, 0 = off, 2 = dimmed in powersave, off while syncing
 		/// </summary>
 		[DataMember(Name = "ledMode")]
 		public int? LedMode { get; set; }

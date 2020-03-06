@@ -7,7 +7,7 @@ namespace InnerCore.Api.HueSync.Models.Enum
 		[EnumMember(Value = "none")]
 		None = 1,
 
-		[EnumMember(Value = "checkForFirmwareUpdates")]
+		[EnumMember(Value = "doFirmwareUpdate")]
 		CheckFirmwareUpdates = 2,
 
 		[EnumMember(Value = "doSoftwareRestart")]

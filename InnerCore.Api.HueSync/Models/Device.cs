@@ -11,7 +11,7 @@ namespace InnerCore.Api.HueSync.Models
 	public class Device : DeviceCommand
 	{
 		[DataMember(Name = "deviceType")]
-		public string DeviceType { get; set; }
+		public DeviceType DeviceType { get; set; }
 
 		[DataMember(Name = "uniqueId")]
 		public string UniqueId { get; set; }
@@ -20,7 +20,7 @@ namespace InnerCore.Api.HueSync.Models
 		public string IpAddress { get; set; }
 
 		[DataMember(Name = "apiLevel")]
-		public decimal ApiLevel { get; set; }
+		public int ApiLevel { get; set; }
 
 		[DataMember(Name = "firmwareVersion")]
 		public string FirmwareVersion { get; set; }
@@ -43,5 +43,8 @@ namespace InnerCore.Api.HueSync.Models
 
 		[DataMember(Name = "termsAgreed")]
 		public bool TermsAgreed { get; set; }
+
+		[DataMember(Name = "capabilities")]
+		public Capabilities Capabilities { get; set; }
 	}
 }

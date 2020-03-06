@@ -8,6 +8,12 @@ namespace InnerCore.Api.HueSync.Models.Enum
 		Wan = 1,
 
 		[EnumMember(Value = "lan")]
-		Lan = 2
+		Lan = 2,
+
+		[EnumMember(Value = "uninitialized")]
+		Uninitialized = 3,
+
+		[EnumMember(Value = "disconnected")]
+		Disconnected = 4
 	}
 }
