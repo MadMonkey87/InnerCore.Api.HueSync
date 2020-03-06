@@ -50,6 +50,17 @@ namespace InnerCore.Api.HueSync.Extensions
             return behavior;
         }
 
+        public static BehaviorCommand SetDoviNative(this BehaviorCommand behavior, bool enable)
+        {
+            if (behavior == null)
+            {
+                throw new ArgumentNullException(nameof(behavior));
+            }
+
+            behavior.ForceDoviNative = enable ? 1 : 0;
+            return behavior;
+        }
+
         public static BehaviorCommand SetArcBypass(this BehaviorCommand behavior, bool enable)
         {
             if (behavior == null)

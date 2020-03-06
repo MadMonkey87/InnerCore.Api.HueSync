@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace InnerCore.Api.HueSync.Models.Enum
 {
@@ -38,6 +39,7 @@ namespace InnerCore.Api.HueSync.Models.Enum
 		/// the sync box is powered on and performs some animations by itself, not depending on any input
 		/// </summary>
 		[EnumMember(Value = "ambient")]
+		[Obsolete("will be removed in the future")]
 		Ambient = 6
 	}
 }
