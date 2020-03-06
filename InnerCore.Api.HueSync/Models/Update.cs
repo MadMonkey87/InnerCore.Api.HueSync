@@ -8,7 +8,9 @@ namespace InnerCore.Api.HueSync.Models
 		[DataMember(Name = "autoUpdateEnabled")]
 		public bool AutoUpdateEnabled { get; set; }
 
-		// todo: clarify the meaning of this (might this be the amount of days?)
+		/// <summary>
+		/// hour of the day when checking for updates, valid values are 0-23, deault is 10
+		/// </summary>
 		[DataMember(Name = "autoUpdateTime")]
 		public int AutoUpdateTime { get; set; }
 	}
