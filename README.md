@@ -3,7 +3,7 @@ InnerCore.Api.HueSync [![Build Status][azure build]][project]	[![NuGet][nuget ba
 
 Open source library for communication with the Philips Hue Sync Box. This library allows you to perform the same actions as you could do with the official app and even more!
 
-Important: there is no official documentation available yet. Most features have been discovered however (credit: https://github.com/ebaauw/homebridge-hue/issues/552). 
+**Update**: the api now has been made available official by signify! See https://developers.meethue.com/develop/hue-entertainment/hue-hdmi-sync-box-api/ (login required).
  
 ## Usage
 First you need to know the ip address of your hue sync box. The following code will search for devices in your network:
