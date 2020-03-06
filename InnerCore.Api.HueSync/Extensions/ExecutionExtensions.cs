@@ -18,6 +18,50 @@ namespace InnerCore.Api.HueSync.Extensions
             return action;
         }
 
+        public static ExecutionCommand SetHdmiActive(this ExecutionCommand action, bool enable)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            action.HdmiActive = enable;
+            return action;
+        }
+
+        public static ExecutionCommand SetHueTarget(this ExecutionCommand action, string hueTarget)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            action.HueTarget = hueTarget;
+            return action;
+        }
+
+        public static ExecutionCommand ToggleSyncActive(this ExecutionCommand action, string hueTarget)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            action.ToggleSyncActive = true;
+            return action;
+        }
+
+        public static ExecutionCommand ToggleHdmiActive(this ExecutionCommand action)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            action.ToggleHdmiActive = true;
+            return action;
+        }
+
         public static ExecutionCommand SetMode(this ExecutionCommand action, Mode mode)
 		{
 			if (action == null)
