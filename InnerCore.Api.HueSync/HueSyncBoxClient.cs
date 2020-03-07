@@ -139,7 +139,7 @@ namespace InnerCore.Api.HueSync
 			return result.Select(e => e.Value).ToList();
 		}
 
-		public async Task<Preset> CreatePreset(string name, ExecutionCommand executionCommand)
+		public async Task<string> CreatePreset(string name, ExecutionCommand executionCommand)
 		{
 			CheckInitialized();
 
@@ -159,7 +159,16 @@ namespace InnerCore.Api.HueSync
 
 			var client = await GetHttpClient().ConfigureAwait(false);
 			var response = await client.PostAsync(new Uri($"{_apiBase}/api/v1/presets"), SerializeRequest(preset)).ConfigureAwait(false);
-			return await HandleResponseAsync<Preset>(response);
+			return (await HandleResponseAsync<Preset>(response)).PresetId;
+		}
+
+		public async Task RemovePreset(string presetId)
+		{
+			CheckInitialized();
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.DeleteAsync(new Uri($"{_apiBase}/api/v1/presets/{presetId}")).ConfigureAwait(false);
+			await HandleResponseAsync(response);
 		}
 
 		public async Task ApplyExecutionCommandAsync(ExecutionCommand command)
@@ -251,7 +260,14 @@ namespace InnerCore.Api.HueSync
 		{
 			if (!response.IsSuccessStatusCode && throwOnError)
 			{
-				var error = JsonConvert.DeserializeObject<GenericError>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+				var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+				if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+				{
+					throw new HueSyncBoxException(new GenericError() { Message = content });
+				}
+
+				var error = JsonConvert.DeserializeObject<GenericError>(content);
 				throw new HueSyncBoxException(error);
 			}
 		}
