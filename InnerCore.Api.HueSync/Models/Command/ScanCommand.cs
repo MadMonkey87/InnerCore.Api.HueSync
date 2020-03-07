@@ -6,9 +6,9 @@ using System.Text;
 namespace InnerCore.Api.HueSync.Models.Command
 {
 	[DataContract]
-	public class IrCommand
+	public class ScanCommand
 	{
-		[DataMember(Name = "scan")]
-		public ScanCommand Scan { get; set; }
+		[DataMember(Name = "scanning")]
+		public bool? Scanning { get; set; }
 	}
 }

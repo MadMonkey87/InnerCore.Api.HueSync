@@ -9,5 +9,7 @@ namespace InnerCore.Api.HueSync.Models
 	[DataContract]
 	public class Ir : IrCommand
 	{
+		[DataMember(Name = "scan")]
+		public Scan Scan { get; set; }
 	}
 }

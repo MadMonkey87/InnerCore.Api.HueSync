@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InnerCore.Api.HueSync.Models.Command;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
@@ -6,11 +7,8 @@ using System.Text;
 namespace InnerCore.Api.HueSync.Models
 {
 	[DataContract]
-	public class Scan
+	public class Scan : ScanCommand
 	{
-		[DataMember(Name = "scanning")]
-		public bool? Scanning { get; set; }
-
 		[DataMember(Name = "code")]
 		public string Code { get; set; }
 	}
