@@ -1,5 +1,7 @@
 ﻿using InnerCore.Api.HueSync.Models.Command;
 using InnerCore.Api.HueSync.Models.Enum;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace InnerCore.Api.HueSync.Models
@@ -13,6 +15,19 @@ namespace InnerCore.Api.HueSync.Models
 		[DataMember(Name = "connectionState")]
 		public ConnectionState ConnectionState { get; set; }
 
-		// todo: groups
+		[DataMember(Name = "groups")]
+		internal Dictionary<string, Group> RawGroups { get; set; }
+
+		public ICollection<Group> Groups
+		{
+			get
+			{
+				foreach (var rawGroup in RawGroups)
+				{
+					rawGroup.Value.Id = rawGroup.Key;
+				}
+				return RawGroups.Select(e => e.Value).ToList();
+			}
+		}
 	}
 }
