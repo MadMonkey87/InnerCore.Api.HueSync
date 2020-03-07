@@ -71,6 +71,7 @@ The api reveals a few features that the official app does not yet provide but th
  - ledMode: enable/disable/dimm the led
  - there is an ambient mode, but unfortunately it will get removed soon according to signify
  - start/stopping the light sync seems to work only if it is the only command
+ - firmware 1.3.2 seems to support DolbyVision officially as there is a new setting "forceDoviNative" related to this
 
 ## License
 
