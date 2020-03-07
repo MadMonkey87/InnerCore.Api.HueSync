@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -9,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace InnerCore.Api.HueSync
 {
-    public class HueSyncBoxClient
+	public class HueSyncBoxClient
 	{
 		private string _accessToken;
 
@@ -17,7 +19,7 @@ namespace InnerCore.Api.HueSync
 
 		private HttpClient _httpClient;
 
-		private JsonSerializerSettings _serializerSettings = 
+		private JsonSerializerSettings _serializerSettings =
 			new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
 
 		public HueSyncBoxClient(string ip)
@@ -31,19 +33,20 @@ namespace InnerCore.Api.HueSync
 		public void Initialize(string accessToken)
 		{
 			_accessToken = accessToken ?? throw new ArgumentNullException(nameof(accessToken));
-			if(_httpClient != null) {
+			if (_httpClient != null)
+			{
 				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
 			}
 		}
 
-        /// <summary>
-        /// Retrieves an access token from the box. Enusre that the box is turned on (led is white) and then press and hold the physical button (~1 sec) on your sync box until the led flashes green.
-        /// Calling RegisterAsync then will return the access token which should be kept safe for further use
-        /// </summary>
-        /// <param name="applicationName">any application name</param>
-        /// <param name="clientName">any client name</param>
-        /// <returns>null if the user needs to press the physical button on the box or the access token if the registration was successful</returns>
-        public async Task<string> RegisterAsync(string applicationName, string clientName)
+		/// <summary>
+		/// Retrieves an access token from the box. Ensure that the box is turned on (led is white) and then press and hold the physical button (~1 sec) on your sync box until the led flashes green.
+		/// Calling RegisterAsync then will return the access token which should be kept safe for further use
+		/// </summary>
+		/// <param name="applicationName">any application name</param>
+		/// <param name="clientName">any client name</param>
+		/// <returns>null if the user needs to press the physical button on the box or the access token if the registration was successful</returns>
+		public async Task<string> RegisterAsync(string applicationName, string clientName)
 		{
 			if (applicationName == null)
 				throw new ArgumentNullException(nameof(applicationName));
@@ -56,15 +59,15 @@ namespace InnerCore.Api.HueSync
 
 			var registrationResponse = await HandleResponseAsync<RegistrationResponse>(response, false);
 
-            // all good, but the physical button has not yet been pressed
-            if(registrationResponse.Code == 16)
-            {
-                return null;
-            }
+			// all good, but the physical button has not yet been pressed
+			if (registrationResponse.Code == 16)
+			{
+				return null;
+			}
 
 			Initialize(registrationResponse.AccessToken);
 
-            return registrationResponse.AccessToken;
+			return registrationResponse.AccessToken;
 		}
 
 		public async Task<State> GetStateAsync()
@@ -116,6 +119,24 @@ namespace InnerCore.Api.HueSync
 			var client = await GetHttpClient().ConfigureAwait(false);
 			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/ir")).ConfigureAwait(false);
 			return await HandleResponseAsync<Ir>(response);
+		}
+
+		public async Task<IEnumerable<Preset>> GetPresetsAsync()
+		{
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/presets")).ConfigureAwait(false);
+			var result = await HandleResponseAsync<Dictionary<string, Preset>>(response);
+
+			if (result == null)
+			{
+				return new List<Preset>();
+			}
+
+			foreach (var rawCode in result)
+			{
+				rawCode.Value.PresetId = rawCode.Key;
+			}
+			return result.Select(e => e.Value).ToList();
 		}
 
 		public async Task ApplyExecutionCommandAsync(ExecutionCommand command)
