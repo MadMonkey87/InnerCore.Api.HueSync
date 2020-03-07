@@ -130,6 +130,47 @@ namespace InnerCore.Api.HueSync
 			return await HandleResponseAsync<Ir>(response);
 		}
 
+		public async Task<IrCode> CreateIrCode(string name, string code, ExecutionCommand executionCommand)
+		{
+			CheckInitialized();
+
+			var device = await GetDeviceAsync();
+			var irCodes = await GetIrAsync();
+
+			if (irCodes.Codes.Count() >= device.Capabilities.MaxIrCodes)
+			{
+				throw new InvalidOperationException($"the max amount of ir codes ({device.Capabilities.MaxIrCodes}) has been reached.");
+			}
+
+			var irCode = new IrCode()
+			{
+				ExecutionCommand = executionCommand,
+				Name = name
+			};
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.PostAsync(new Uri($"{_apiBase}/api/v1/ir/codes/{code}"), SerializeRequest(irCode)).ConfigureAwait(false);
+			return (await HandleResponseAsync<IrCode>(response));
+		}
+
+		public async Task UpdateIrCode(IrCode code)
+		{
+			CheckInitialized();
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/ir/codes/{code.Code}"), SerializeRequest(code)).ConfigureAwait(false);
+			await HandleResponseAsync(response);
+		}
+
+		public async Task RemoveIrCode(string code)
+		{
+			CheckInitialized();
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.DeleteAsync(new Uri($"{_apiBase}/api/v1/ir/codes/{code}")).ConfigureAwait(false);
+			await HandleResponseAsync(response);
+		}
+
 		public async Task<IEnumerable<Preset>> GetPresetsAsync()
 		{
 			var client = await GetHttpClient().ConfigureAwait(false);
