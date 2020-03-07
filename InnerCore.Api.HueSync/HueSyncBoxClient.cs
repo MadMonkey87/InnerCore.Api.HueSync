@@ -162,6 +162,15 @@ namespace InnerCore.Api.HueSync
 			return (await HandleResponseAsync<Preset>(response)).PresetId;
 		}
 
+		public async Task UpdatePreset(Preset preset)
+		{
+			CheckInitialized();
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/presets/{preset.PresetId}"), SerializeRequest(preset)).ConfigureAwait(false);
+			await HandleResponseAsync(response);
+		}
+
 		public async Task RemovePreset(string presetId)
 		{
 			CheckInitialized();
@@ -276,7 +285,8 @@ namespace InnerCore.Api.HueSync
 		{
 			await HandleResponseAsync(response, throwOnError);
 
-			return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+			var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+			return JsonConvert.DeserializeObject<T>(content);
 		}
 
 		private Task<HttpClient> GetHttpClient()
