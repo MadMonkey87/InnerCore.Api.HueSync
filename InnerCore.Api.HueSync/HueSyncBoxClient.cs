@@ -118,13 +118,6 @@ namespace InnerCore.Api.HueSync
 			return await HandleResponseAsync<Ir>(response);
 		}
 
-		public async Task<Registrations> GetRegistrationsAsync()
-		{
-			var client = await GetHttpClient().ConfigureAwait(false);
-			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/registrations")).ConfigureAwait(false);
-			return await HandleResponseAsync<Registrations>(response);
-		}
-
 		public async Task ApplyExecutionCommandAsync(ExecutionCommand command)
 		{
 			if (command == null)

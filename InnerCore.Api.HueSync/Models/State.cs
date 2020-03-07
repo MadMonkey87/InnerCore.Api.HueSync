@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Linq;
 
 namespace InnerCore.Api.HueSync.Models
 {
@@ -44,10 +46,29 @@ namespace InnerCore.Api.HueSync.Models
 		[DataMember(Name = "ir")]
 		public Ir Ir { get; set; }
 
+		[DataMember(Name = "registrations")]
+		public Dictionary<string, Registration> RawRegistrations { get; set; }
+
 		/// <summary>
 		/// Details about the registered apps
 		/// </summary>
-		[DataMember(Name = "registrations")]
-		public Registrations Registrations { get; set; }
+		public ICollection<Registration> Registrations
+		{
+			get
+			{
+				if (RawRegistrations == null)
+				{
+					return new List<Registration>();
+				}
+
+				foreach (var rawCode in RawRegistrations)
+				{
+					rawCode.Value.RegistrationId = rawCode.Key;
+				}
+				return RawRegistrations.Select(e => e.Value).ToList();
+			}
+		}
+
+
 	}
 }
