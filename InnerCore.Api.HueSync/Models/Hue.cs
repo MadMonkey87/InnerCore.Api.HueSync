@@ -22,6 +22,11 @@ namespace InnerCore.Api.HueSync.Models
 		{
 			get
 			{
+				if (RawGroups == null)
+				{
+					return new List<Group>();
+				}
+
 				foreach (var rawGroup in RawGroups)
 				{
 					rawGroup.Value.Id = rawGroup.Key;
