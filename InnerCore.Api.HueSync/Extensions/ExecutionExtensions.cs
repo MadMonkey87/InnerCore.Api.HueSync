@@ -18,6 +18,116 @@ namespace InnerCore.Api.HueSync.Extensions
             return action;
         }
 
+        public static ExecutionCommand SetHdmiActive(this ExecutionCommand action, bool enable)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            action.HdmiActive = enable;
+            return action;
+        }
+
+        public static ExecutionCommand SetHueTarget(this ExecutionCommand action, string hueTarget)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            action.HueTarget = $"groups/{hueTarget}";
+            return action;
+        }
+
+        public static ExecutionCommand ToggleSyncActive(this ExecutionCommand action, string hueTarget)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            action.ToggleSyncActive = true;
+            return action;
+        }
+
+        public static ExecutionCommand ToggleHdmiActive(this ExecutionCommand action)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            action.ToggleHdmiActive = true;
+            return action;
+        }
+
+        public static ExecutionCommand CycleHdmiSource(this ExecutionCommand action, Cycle cycle)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            action.CycleHdmiSource = cycle;
+            return action;
+        }
+
+        public static ExecutionCommand CycleSyncMode(this ExecutionCommand action, Cycle cycle)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            action.CycleSyncMode = cycle;
+            return action;
+        }
+
+        public static ExecutionCommand IncrementBrightness(this ExecutionCommand action, int increment)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            action.IncrementBrightness = increment;
+            return action;
+        }
+
+        public static ExecutionCommand CycleIntensity(this ExecutionCommand action, Cycle cycle)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            action.CycleIntensity = cycle;
+            return action;
+        }
+
+        public static ExecutionCommand SetPreset(this ExecutionCommand action, string preset)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            action.Preset = preset;
+            return action;
+        }
+
+        public static ExecutionCommand SetIntensity(this ExecutionCommand action, Intensity intensity)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            action.Intensity = intensity;
+            return action;
+        }
+
         public static ExecutionCommand SetMode(this ExecutionCommand action, Mode mode)
 		{
 			if (action == null)
@@ -50,41 +160,6 @@ namespace InnerCore.Api.HueSync.Extensions
 			action.HdmiSource = source;
 			return action;
 		}
-
-        public static ExecutionCommand SetIntensity(this ExecutionCommand action, Intensity intensity)
-        {
-            if (action == null)
-            {
-                throw new ArgumentNullException(nameof(action));
-            }
-
-            switch (action.Mode)
-            {
-                case Mode.Game:
-                    if (action.GameOptions == null)
-                    {
-                        action.GameOptions = new ModeOptionsVideoCommand();
-                    }
-                    action.GameOptions.Intensity = intensity;
-                    break;
-                case Mode.Music:
-                    if (action.MusicOptions == null)
-                    {
-                        action.MusicOptions = new ModeOptionsMusicCommand();
-                    }
-                    action.MusicOptions.Intensity = intensity;
-                    break;
-                case  Mode.Video:
-                    if (action.VideoOptions == null)
-                    {
-                        action.VideoOptions = new ModeOptionsVideoCommand();
-                    }
-                    action.VideoOptions.Intensity = intensity;
-                    break;
-                default: throw new InvalidOperationException("Please set a mode first. Only the 'game', 'video' and the 'music' mode support setting the intensity!");
-            }
-            return action;
-        }
 
         public static ExecutionCommand SetBackgroundLighting(this ExecutionCommand action, bool backgroundLighting)
         {

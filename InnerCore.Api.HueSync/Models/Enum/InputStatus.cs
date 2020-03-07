@@ -11,6 +11,9 @@ namespace InnerCore.Api.HueSync.Models.Enum
 		Plugged = 2,
 
 		[EnumMember(Value = "linked")]
-		Linked = 3
+		Linked = 3,
+
+		[EnumMember(Value = "unknown")]
+		Unknown = 4
 	}
 }

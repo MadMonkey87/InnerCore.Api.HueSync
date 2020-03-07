@@ -15,6 +15,6 @@ namespace InnerCore.Api.HueSync.Models.Command
 		public InputCommand Input3 { get; set; }
 
 		[DataMember(Name = "input4")]
-		public  InputCommand Input4 { get; set; }
+		public InputCommand Input4 { get; set; }
 	}
 }

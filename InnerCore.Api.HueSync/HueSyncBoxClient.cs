@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -9,8 +11,7 @@ using Newtonsoft.Json;
 
 namespace InnerCore.Api.HueSync
 {
-	// todo: extend s.t the hue bridge details can be changed too
-    public class HueSyncBoxClient
+	public class HueSyncBoxClient
 	{
 		private string _accessToken;
 
@@ -18,7 +19,7 @@ namespace InnerCore.Api.HueSync
 
 		private HttpClient _httpClient;
 
-		private JsonSerializerSettings _serializerSettings = 
+		private JsonSerializerSettings _serializerSettings =
 			new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
 
 		public HueSyncBoxClient(string ip)
@@ -32,43 +33,53 @@ namespace InnerCore.Api.HueSync
 		public void Initialize(string accessToken)
 		{
 			_accessToken = accessToken ?? throw new ArgumentNullException(nameof(accessToken));
-			if(_httpClient != null) {
+			if (_httpClient != null)
+			{
 				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
 			}
 		}
 
-        /// <summary>
-        /// Retrieves an access token from the box. Enusre that the box is turned on (led is white) and then press and hold the physical button (~1 sec) on your sync box until the led flashes green.
-        /// Calling RegisterAsync then will return the access token which should be kept safe for further use
-        /// </summary>
-        /// <param name="applicationName">any application name</param>
-        /// <param name="applicationSecret">it is not yet known how and where to register an application, but MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI= seems to work fine</param>
-        /// <param name="clientName">any client name</param>
-        /// <returns>null if the user needs to press the physical button on the box or the access token if the registration was successful</returns>
-        public async Task<string> RegisterAsync(string applicationName, string applicationSecret, string clientName)
+		/// <summary>
+		/// Retrieves an access token from the box.
+		/// 1) ensure the box is initalized and it's led is white or red
+		/// 2) call this method -> it will return null initially
+		/// 3) within 5 seconds you'll have to press and hold (~3 sec) the button until the led flashed green
+		/// 4) call this method again, it now will return an access token which should be kept safe for further use -> see Initialize()
+		/// </summary>
+		/// <param name="applicationName">any application name</param>
+		/// <param name="clientName">any client name</param>
+		/// <returns>null if the user needs to press the physical button on the box or the access token if the registration was successful</returns>
+		public async Task<string> RegisterAsync(string applicationName, string clientName)
 		{
 			if (applicationName == null)
 				throw new ArgumentNullException(nameof(applicationName));
-			if (applicationSecret == null)
-				throw new ArgumentNullException(nameof(applicationSecret));
 			if (clientName == null)
 				throw new ArgumentNullException(nameof(clientName));
 
-			var request = new RegistrationRequest() { ApplicationName = applicationName, ApplicationSecret = applicationSecret, ClientName = clientName };
+			var request = new RegistrationRequest() { ApplicationName = applicationName, ClientName = clientName };
 			var client = await GetHttpClient().ConfigureAwait(false);
 			var response = await client.PostAsync(new Uri($"{_apiBase}/api/v1/registrations"), SerializeRequest(request)).ConfigureAwait(false);
 
 			var registrationResponse = await HandleResponseAsync<RegistrationResponse>(response, false);
 
-            // all good, but the physical button has not yet been pressed
-            if(registrationResponse.Code == 16)
-            {
-                return null;
-            }
+			// all good, but the physical button has not yet been pressed
+			if (registrationResponse.Code == 16)
+			{
+				return null;
+			}
 
 			Initialize(registrationResponse.AccessToken);
 
-            return registrationResponse.AccessToken;
+			return registrationResponse.AccessToken;
+		}
+
+		public async Task RemoveRegistration(string registrationId)
+		{
+			CheckInitialized();
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.DeleteAsync(new Uri($"{_apiBase}/api/v1/registrations/{registrationId}")).ConfigureAwait(false);
+			await HandleResponseAsync(response);
 		}
 
 		public async Task<State> GetStateAsync()
@@ -115,11 +126,111 @@ namespace InnerCore.Api.HueSync
 			return await HandleResponseAsync<BehaviorCommand>(response);
 		}
 
-		public async Task<Registrations> GetRegistrationsAsync()
+		public async Task<Ir> GetIrAsync()
 		{
 			var client = await GetHttpClient().ConfigureAwait(false);
-			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/registrations")).ConfigureAwait(false);
-			return await HandleResponseAsync<Registrations>(response);
+			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/ir")).ConfigureAwait(false);
+			return await HandleResponseAsync<Ir>(response);
+		}
+
+		public async Task<IrCode> CreateIrCode(string name, string code, ExecutionCommand executionCommand)
+		{
+			CheckInitialized();
+
+			var device = await GetDeviceAsync();
+			var irCodes = await GetIrAsync();
+
+			if (irCodes.Codes.Count() >= device.Capabilities.MaxIrCodes)
+			{
+				throw new InvalidOperationException($"the max amount of ir codes ({device.Capabilities.MaxIrCodes}) has been reached.");
+			}
+
+			var irCode = new IrCode()
+			{
+				ExecutionCommand = executionCommand,
+				Name = name
+			};
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.PostAsync(new Uri($"{_apiBase}/api/v1/ir/codes/{code}"), SerializeRequest(irCode)).ConfigureAwait(false);
+			return (await HandleResponseAsync<IrCode>(response));
+		}
+
+		public async Task UpdateIrCode(IrCode code)
+		{
+			CheckInitialized();
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/ir/codes/{code.Code}"), SerializeRequest(code)).ConfigureAwait(false);
+			await HandleResponseAsync(response);
+		}
+
+		public async Task RemoveIrCode(string code)
+		{
+			CheckInitialized();
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.DeleteAsync(new Uri($"{_apiBase}/api/v1/ir/codes/{code}")).ConfigureAwait(false);
+			await HandleResponseAsync(response);
+		}
+
+		public async Task<IEnumerable<Preset>> GetPresetsAsync()
+		{
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.GetAsync(new Uri($"{_apiBase}/api/v1/presets")).ConfigureAwait(false);
+			var result = await HandleResponseAsync<Dictionary<string, Preset>>(response);
+
+			if (result == null)
+			{
+				return new List<Preset>();
+			}
+
+			foreach (var rawCode in result)
+			{
+				rawCode.Value.PresetId = rawCode.Key;
+			}
+			return result.Select(e => e.Value).ToList();
+		}
+
+		public async Task<string> CreatePreset(string name, ExecutionCommand executionCommand)
+		{
+			CheckInitialized();
+
+			var device = await GetDeviceAsync();
+			var presets = await GetPresetsAsync();
+
+			if (presets.Count() >= device.Capabilities.MaxPresets)
+			{
+				throw new InvalidOperationException($"the max amount of presets ({device.Capabilities.MaxPresets}) has been reached.");
+			}
+
+			var preset = new Preset()
+			{
+				ExecutionCommand = executionCommand,
+				Name = name
+			};
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.PostAsync(new Uri($"{_apiBase}/api/v1/presets"), SerializeRequest(preset)).ConfigureAwait(false);
+			return (await HandleResponseAsync<Preset>(response)).PresetId;
+		}
+
+		public async Task UpdatePreset(Preset preset)
+		{
+			CheckInitialized();
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/presets/{preset.PresetId}"), SerializeRequest(preset)).ConfigureAwait(false);
+			await HandleResponseAsync(response);
+		}
+
+		public async Task RemovePreset(string presetId)
+		{
+			CheckInitialized();
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.DeleteAsync(new Uri($"{_apiBase}/api/v1/presets/{presetId}")).ConfigureAwait(false);
+			await HandleResponseAsync(response);
 		}
 
 		public async Task ApplyExecutionCommandAsync(ExecutionCommand command)
@@ -174,6 +285,34 @@ namespace InnerCore.Api.HueSync
 			await HandleResponseAsync(response);
 		}
 
+		public async Task ApplyHueCommandAsync(HueCommand command)
+		{
+			if (command == null)
+			{
+				throw new ArgumentNullException(nameof(command));
+			}
+			CheckInitialized();
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/hue"), SerializeRequest(command)).ConfigureAwait(false);
+			await HandleResponseAsync(response);
+		}
+
+		public async Task ApplyIrCommandAsync(IrCommand command)
+		{
+			if (command == null)
+			{
+				throw new ArgumentNullException(nameof(command));
+			}
+			CheckInitialized();
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/ir"), SerializeRequest(command)).ConfigureAwait(false);
+			await HandleResponseAsync(response);
+		}
+
+		// todo: delete codes
+
 		private HttpContent SerializeRequest(Object request)
 		{
 			return new StringContent(JsonConvert.SerializeObject(request, _serializerSettings), Encoding.UTF8, "application/json");
@@ -183,7 +322,14 @@ namespace InnerCore.Api.HueSync
 		{
 			if (!response.IsSuccessStatusCode && throwOnError)
 			{
-				var error = JsonConvert.DeserializeObject<GenericError>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+				var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+				if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+				{
+					throw new HueSyncBoxException(new GenericError() { Message = content });
+				}
+
+				var error = JsonConvert.DeserializeObject<GenericError>(content);
 				throw new HueSyncBoxException(error);
 			}
 		}
@@ -192,7 +338,8 @@ namespace InnerCore.Api.HueSync
 		{
 			await HandleResponseAsync(response, throwOnError);
 
-			return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+			var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+			return JsonConvert.DeserializeObject<T>(content);
 		}
 
 		private Task<HttpClient> GetHttpClient()

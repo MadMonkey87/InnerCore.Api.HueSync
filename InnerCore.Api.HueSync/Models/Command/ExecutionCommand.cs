@@ -1,6 +1,7 @@
 ﻿using InnerCore.Api.HueSync.Models.Enum;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 using System.Runtime.Serialization;
 
 namespace InnerCore.Api.HueSync.Models.Command
@@ -8,6 +9,7 @@ namespace InnerCore.Api.HueSync.Models.Command
 	[DataContract]
 	public class ExecutionCommand
 	{
+		// todo: how can we handle further, unknown modes?
 		[DataMember(Name = "mode")]
 		[JsonConverter(typeof(StringEnumConverter))]
 		public Mode? Mode { get; set; }
@@ -31,10 +33,42 @@ namespace InnerCore.Api.HueSync.Models.Command
 		[DataMember(Name = "music")]
 		public ModeOptionsMusicCommand MusicOptions { get; set; }
 
+		[Obsolete("will be removed in the future")]
 		[DataMember(Name = "ambient")]
 		public ModeOptionsAmbientCommand AmbientOptions { get; set; }
 
 		[DataMember(Name = "syncActive")]
 		public bool? SyncActive { get; set; }
+
+		[DataMember(Name = "hdmiActive")]
+		public bool? HdmiActive { get; set; }
+
+		[DataMember(Name = "hueTarget")]
+		public string HueTarget { get; set; }
+
+		[DataMember(Name = "toggleSyncActive")]
+		public bool? ToggleSyncActive { get; set; }
+
+		[DataMember(Name = "toggleHdmiActive")]
+		public bool? ToggleHdmiActive { get; set; }
+
+		[DataMember(Name = "cycleSyncMode")]
+		public Cycle? CycleSyncMode { get; set; }
+
+		[DataMember(Name = "cycleHdmiSource")]
+		public Cycle? CycleHdmiSource { get; set; }
+
+		[DataMember(Name = "incrementBrightness")]
+		public int? IncrementBrightness { get; set; }
+
+		[DataMember(Name = "cycleIntensity")]
+		public Cycle? CycleIntensity { get; set; }
+
+		[DataMember(Name = "intensity")]
+		[JsonConverter(typeof(StringEnumConverter))]
+		public Intensity? Intensity { get; set; }
+
+		[DataMember(Name = "preset")]
+		public string Preset { get; set; }
 	}
 }

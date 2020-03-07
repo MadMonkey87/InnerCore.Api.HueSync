@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace InnerCore.Api.HueSync.Models.Command
 {
@@ -6,7 +7,7 @@ namespace InnerCore.Api.HueSync.Models.Command
 	public class BehaviorCommand
 	{
 		/// <summary>
-		/// Timespan in minutes
+		/// Timespan in minutes, 0 to disable this feature, max 10000, default 20
 		/// </summary>
 		[DataMember(Name = "inactivePowersave")]
 		public int? InactivePowerSave { get; set; }
@@ -19,6 +20,9 @@ namespace InnerCore.Api.HueSync.Models.Command
 
 		[DataMember(Name = "hpdInputSwitch")]
 		public int? HpdInputSwitch { get; set; }
+
+		[DataMember(Name = "forceDoviNative")]
+		public int? ForceDoviNative { get; set; }
 
 		[DataMember(Name = "arcBypassMode")]
 		public int? ArcBypassMode { get; set; }

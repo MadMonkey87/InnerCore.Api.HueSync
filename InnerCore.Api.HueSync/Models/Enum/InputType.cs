@@ -53,6 +53,18 @@ namespace InnerCore.Api.HueSync.Models.Enum
 		AvReceiver = 16,
 
 		[EnumMember(Value = "soundbar")]
-		Soundbar = 17
+		Soundbar = 17,
+
+		[EnumMember(Value = "hdmiswitch")]
+		HdmiSwitch = 17,
+
+		[EnumMember(Value = "video")]
+		Video = 17,
+
+		[EnumMember(Value = "game")]
+		Game = 17,
+
+		[EnumMember(Value = "music")]
+		Music = 17
 	}
 }

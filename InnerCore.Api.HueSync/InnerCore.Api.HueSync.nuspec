@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>InnerCore.Api.HueSync</id>
-    <version>1.1.1</version>
+    <version>2.0.1</version>
     <title>InnerCore.Api.HueSync</title>
     <authors>Philippe Wechsler</authors>
     <owners>Philippe Wechsler</owners>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/MadMonkey87/InnerCore.Api.HueSync</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A simple library to communicate with Philips Hue Sync Box</description>
-    <releaseNotes>automatically apply the access token after the registration</releaseNotes>
+    <releaseNotes>support for the official api release, api level 4</releaseNotes>
     <copyright>Copyright 2020 Philippe Wechsler</copyright>
     <tags>philips signify hue sync hdmi ambilight</tags>
 	<repository type="GitHub" url="https://github.com/MadMonkey87/InnerCore.Api.HueSync" />
