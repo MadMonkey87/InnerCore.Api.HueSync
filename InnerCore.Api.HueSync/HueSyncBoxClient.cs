@@ -40,8 +40,11 @@ namespace InnerCore.Api.HueSync
 		}
 
 		/// <summary>
-		/// Retrieves an access token from the box. Ensure that the box is turned on (led is white) and then press and hold the physical button (~1 sec) on your sync box until the led flashes green.
-		/// Calling RegisterAsync then will return the access token which should be kept safe for further use
+		/// Retrieves an access token from the box.
+		/// 1) ensure the box is initalized and it's led is white or red
+		/// 2) call this method -> it will return null initially
+		/// 3) within 5 seconds you'll have to press and hold (~3 sec) the button until the led flashed green
+		/// 4) call this method again, it now will return an access token which should be kept safe for further use -> see Initialize()
 		/// </summary>
 		/// <param name="applicationName">any application name</param>
 		/// <param name="clientName">any client name</param>
