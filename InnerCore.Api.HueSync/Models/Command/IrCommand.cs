@@ -10,5 +10,7 @@ namespace InnerCore.Api.HueSync.Models.Command
 	{
 		[DataMember(Name = "scan")]
 		public ScanCommand Scan { get; set; }
+
+		// todo: codes
 	}
 }

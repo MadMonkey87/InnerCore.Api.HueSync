@@ -193,6 +193,21 @@ namespace InnerCore.Api.HueSync
 			await HandleResponseAsync(response);
 		}
 
+		public async Task ApplyIrCommandAsync(IrCommand command)
+		{
+			if (command == null)
+			{
+				throw new ArgumentNullException(nameof(command));
+			}
+			CheckInitialized();
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/ir"), SerializeRequest(command)).ConfigureAwait(false);
+			await HandleResponseAsync(response);
+		}
+
+		// todo: delete codes
+
 		private HttpContent SerializeRequest(Object request)
 		{
 			return new StringContent(JsonConvert.SerializeObject(request, _serializerSettings), Encoding.UTF8, "application/json");
