@@ -139,6 +139,29 @@ namespace InnerCore.Api.HueSync
 			return result.Select(e => e.Value).ToList();
 		}
 
+		public async Task<Preset> CreatePreset(string name, ExecutionCommand executionCommand)
+		{
+			CheckInitialized();
+
+			var device = await GetDeviceAsync();
+			var presets = await GetPresetsAsync();
+
+			if (presets.Count() >= device.Capabilities.MaxPresets)
+			{
+				throw new InvalidOperationException($"the max amount of presets ({device.Capabilities.MaxPresets}) has been reached.");
+			}
+
+			var preset = new Preset()
+			{
+				ExecutionCommand = executionCommand,
+				Name = name
+			};
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.PostAsync(new Uri($"{_apiBase}/api/v1/presets"), SerializeRequest(preset)).ConfigureAwait(false);
+			return await HandleResponseAsync<Preset>(response);
+		}
+
 		public async Task ApplyExecutionCommandAsync(ExecutionCommand command)
 		{
 			if (command == null)
