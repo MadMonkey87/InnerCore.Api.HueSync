@@ -70,6 +70,15 @@ namespace InnerCore.Api.HueSync
 			return registrationResponse.AccessToken;
 		}
 
+		public async Task RemoveRegistration(string registrationId)
+		{
+			CheckInitialized();
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.DeleteAsync(new Uri($"{_apiBase}/api/v1/registrations/{registrationId}")).ConfigureAwait(false);
+			await HandleResponseAsync(response);
+		}
+
 		public async Task<State> GetStateAsync()
 		{
 			CheckInitialized();
