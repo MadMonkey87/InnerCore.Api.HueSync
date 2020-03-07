@@ -41,19 +41,16 @@ namespace InnerCore.Api.HueSync
         /// Calling RegisterAsync then will return the access token which should be kept safe for further use
         /// </summary>
         /// <param name="applicationName">any application name</param>
-        /// <param name="applicationSecret">it is not yet known how and where to register an application, but MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI= seems to work fine</param>
         /// <param name="clientName">any client name</param>
         /// <returns>null if the user needs to press the physical button on the box or the access token if the registration was successful</returns>
-        public async Task<string> RegisterAsync(string applicationName, string applicationSecret, string clientName)
+        public async Task<string> RegisterAsync(string applicationName, string clientName)
 		{
 			if (applicationName == null)
 				throw new ArgumentNullException(nameof(applicationName));
-			if (applicationSecret == null)
-				throw new ArgumentNullException(nameof(applicationSecret));
 			if (clientName == null)
 				throw new ArgumentNullException(nameof(clientName));
 
-			var request = new RegistrationRequest() { ApplicationName = applicationName, ApplicationSecret = applicationSecret, ClientName = clientName };
+			var request = new RegistrationRequest() { ApplicationName = applicationName, ClientName = clientName };
 			var client = await GetHttpClient().ConfigureAwait(false);
 			var response = await client.PostAsync(new Uri($"{_apiBase}/api/v1/registrations"), SerializeRequest(request)).ConfigureAwait(false);
 

@@ -8,9 +8,6 @@ namespace InnerCore.Api.HueSync.Models
 		[DataMember(Name = "appName")]
 		public string ApplicationName { get; set; }
 
-		[DataMember(Name = "appSecret")]
-		public string ApplicationSecret { get; set; }
-
 		[DataMember(Name = "instanceName")]
 		public string ClientName { get; set; }
 	}
