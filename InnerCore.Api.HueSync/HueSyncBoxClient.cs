@@ -9,7 +9,6 @@ using Newtonsoft.Json;
 
 namespace InnerCore.Api.HueSync
 {
-	// todo: extend s.t the hue bridge details can be changed too
     public class HueSyncBoxClient
 	{
 		private string _accessToken;
@@ -171,6 +170,19 @@ namespace InnerCore.Api.HueSync
 
 			var client = await GetHttpClient().ConfigureAwait(false);
 			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/device"), SerializeRequest(command)).ConfigureAwait(false);
+			await HandleResponseAsync(response);
+		}
+
+		public async Task ApplyHueCommandAsync(HueCommand command)
+		{
+			if (command == null)
+			{
+				throw new ArgumentNullException(nameof(command));
+			}
+			CheckInitialized();
+
+			var client = await GetHttpClient().ConfigureAwait(false);
+			var response = await client.PutAsync(new Uri($"{_apiBase}/api/v1/hue"), SerializeRequest(command)).ConfigureAwait(false);
 			await HandleResponseAsync(response);
 		}
 
