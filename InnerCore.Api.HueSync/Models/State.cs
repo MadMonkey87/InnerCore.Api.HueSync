@@ -39,6 +39,12 @@ namespace InnerCore.Api.HueSync.Models
 		public Behavior Behavior { get; set; }
 
 		/// <summary>
+		/// Details about the infrared capabilities
+		/// </summary>
+		[DataMember(Name = "ir")]
+		public Ir Ir { get; set; }
+
+		/// <summary>
 		/// Details about the registered apps
 		/// </summary>
 		[DataMember(Name = "registrations")]
