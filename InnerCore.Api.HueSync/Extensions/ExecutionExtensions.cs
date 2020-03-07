@@ -36,7 +36,7 @@ namespace InnerCore.Api.HueSync.Extensions
                 throw new ArgumentNullException(nameof(action));
             }
 
-            action.HueTarget = hueTarget;
+            action.HueTarget = $"groups/{hueTarget}";
             return action;
         }
 

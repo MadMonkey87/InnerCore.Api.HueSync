@@ -72,12 +72,13 @@ namespace InnerCore.Api.HueSync.Sample
 			// 4. perform some actions on the device
 			// =====================================
 
-			Console.WriteLine("press enter to set the mode to 'game, intense', apply the max brightness and change the source to hdmi 2");
+			Console.WriteLine("press enter to set the mode to 'game, intense', apply the max brightness, change the source to input2 and set the first entertainment area");
 			Console.ReadLine();
 			var action = new ExecutionCommand()
 				.SetMode(Mode.Game)
 				.SetBrightness(200)
-				.SetHdmiSource(HdmiSource.Input2);
+				.SetHdmiSource(HdmiSource.Input2)
+				.SetHueTarget(state.Hue.Groups.First().Id);
 			await client.ApplyExecutionCommandAsync(action);
 
 			Console.WriteLine("press enter start syncing");

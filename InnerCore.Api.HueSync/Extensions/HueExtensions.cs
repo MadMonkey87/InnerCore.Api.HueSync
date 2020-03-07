@@ -19,17 +19,5 @@ namespace InnerCore.Api.HueSync.Extensions
             
             return command;
         }
-
-        public static HueCommand SetGroup(this HueCommand command, string groupId)
-        {
-            if (command == null)
-            {
-                throw new ArgumentNullException(nameof(command));
-            }
-
-            command.GroupId = groupId;
-
-            return command;
-        }
     }
 }

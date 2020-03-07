@@ -16,8 +16,5 @@ namespace InnerCore.Api.HueSync.Models.Command
 
 		[DataMember(Name = "clientKey")]
 		public string ClientKey { get; set; }
-
-		[DataMember(Name = "groupId")]
-		public string GroupId { get; set; }
 	}
 }

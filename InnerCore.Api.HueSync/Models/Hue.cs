@@ -15,6 +15,9 @@ namespace InnerCore.Api.HueSync.Models
 		[DataMember(Name = "connectionState")]
 		public ConnectionState ConnectionState { get; set; }
 
+		[DataMember(Name = "groupId")]
+		public string GroupId { get; set; }
+
 		[DataMember(Name = "groups")]
 		internal Dictionary<string, Group> RawGroups { get; set; }
 
